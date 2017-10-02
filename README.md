@@ -4,7 +4,7 @@ Practicas-SPSI
 Prácticas de la asignatura Seguridad y Protección de Sistemas Informáticos (SPSI).  
 ------------------------
 
-- **P1-**: .  
+- **P1-Criptosistemas Simétricos**: En esta práctica, utilizaremos *OpenSSL* para probar los algoritmos de cifrados por bloques *DES* y *AES* en algunas de sus variantes así como comprobar por qué las claves débiles y semi-débiles no son convenientes usarlas para el cifrado.  
 <!--- "- **P2-**: .  " -->
 
 Licencia  
