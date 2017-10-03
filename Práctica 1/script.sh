@@ -1,7 +1,7 @@
 #! /bin/bash
 
 # Archivo de 0's
-dd if=/dev/zero of=input.bin bs=128 count=1 
+dd if=/dev/zero of=input.bin bs=128 count=1 2> /dev/null
 
 # Archivo de 0's con un 1
 cat input.bin | head -c 2 > input1.bin && printf '\100' >> input1.bin && cat input.bin | tail -c 125 >> input1.bin
@@ -10,7 +10,7 @@ cat input.bin | head -c 2 > input1.bin && printf '\100' >> input1.bin && cat inp
 touch clave
 
 # Directorio que contendrá los archivos
-mkdir Resultados
+mkdir -p Resultados
 
 # Codificar con clave débil y semi-débil usando los modos ECB, CBC y OFB de DES.
 for key in "0101010101010101" "011F011F010E010E"
