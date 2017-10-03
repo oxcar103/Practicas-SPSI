@@ -222,6 +222,6 @@ TSWLatexianTemp*
 
 
 # Ignorar archivos de resultados de las prácticas
-./Práctica\ 1/Resultados/*
-./Práctica\ 1/clave
-./Práctica\ 1/*.bin
+Práctica\ 1/Resultados/*
+Práctica\ 1/clave
+Práctica\ 1/*.bin
