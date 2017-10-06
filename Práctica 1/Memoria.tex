@@ -52,23 +52,18 @@
 \usepackage[T1]{fontenc}
 \selectlanguage{spanish}
 
-
 %% Gráficos
 \usepackage{graphicx} % Required for including pictures
 \usepackage{wrapfig} % Allows in-line images
 \usepackage[usenames,dvipsnames]{color} % Coloring code
 
-
 %% Matemáticas
 \usepackage{amsmath}
 
-
-%% Bibliografía
 \makeatletter
-\renewcommand\@biblabel[1]{\textbf{#1.}} % Change the square brackets for each bibliography item from '[1]' to '1.'
-\renewcommand{\@listI}{\itemsep=0pt} % Reduce the space between items in the itemize and enumerate environments and the bibliography
 
-
+% Hipervínculos
+\usepackage[hidelinks]{hyperref}
 
 %----------------------------------------------------------------------------------------
 %	TÍTULO
@@ -119,9 +114,34 @@ Criptosistemas Simétricos} % Subtitle
 
 \section{Creación de los archivos}
 	\subsection{Input.bin e Input1.bin}
-	\subsection{Clave débil y semi-débil}
-	\subsection{Clave fuerte y vector de inicialización}
+		Para la creación de input.bin, utilizaremos el comando \href{http://manpages.ubuntu.com/manpages/zesty/en/man1/dd.1.html}
+		{\textit{dd}} con entrada \textit{/dev/zero} que es un directorio que sólo aporta 0's. Para la creación de input1.bin
+		podríamos usar \href{http://manpages.ubuntu.com/manpages/zesty/en/man1/ghex.1.html}{\textit{ghex}} para modificar
+		input.bin y convertirlo en input1.bin añadiendo un 1 en la posición adecuada pero en este caso he usado el comando
+		\href{http://manpages.ubuntu.com/manpages/zesty/en/man1/cat.1.html}{\textit{cat}} para poder encargárselo a un script.
+		
+	\subsection{Claves y vector de inicialización}
+		Es fácil encontrar \href{https://en.wikipedia.org/wiki/Weak_key#Weak_keys_in_DES}{claves débiles de DES}. En nuestro
+		script, hemos optado por usar \textbf{0x0101010101010101} como clave débil y \textbf{0x011F011F010E010E} como clave
+		semidébil.
+		
+		Para el caso de la clave fuerte, nos basta tomar una clave hexadecimal que no esté en la lista de claves débiles
+		mencionadas anteriormente. Optaremos por la clave \textbf{0x1032456789abcdef} % Esta permutación puede parecer casual pero no lo es... (103)
+		para el cifrado de los ejercicios 4 en adelante. Y como vector de inicialización hemos usado \textbf{0x67}. % 103=0x67
+
 	\subsection{Resultados}
+		Para generar los resultados, nos basta con usar \href{http://manpages.ubuntu.com/manpages/zesty/en/man1/openssl.1ssl.html}
+		{\textit{openssl}}:
+		
+		\begin{small}
+			\verb|openssl enc -$mode -K $key -iv $vector -in input.bin -out ./Resultados/input_$mode.bin|
+			\verb|openssl enc -$mode -K $key -iv $vector -in input1.bin -out ./Resultados/input1_$mode.bin|
+		\end{small}
+		
+		Englobado todo en un \href{http://manpages.ubuntu.com/manpages/zesty/en/man3/for.3tcl.html}{\textit{for}} para ir
+		pasando los parámetros adecuados en cada caso.
+		
+		La única excepción sería cuando nos piden desencriptar, pero para realizarla, nos basta con usar el parámetro \textit{-d}.
 	
 \section{Comparación y análisis de los resultados}
 	\subsection{Modos ECB, CBC y OFB de DES con claves débil y semi-débil}
