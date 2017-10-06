@@ -8,30 +8,29 @@ cat input.bin | head -c 2 > input1.bin && printf '\100' >> input1.bin && cat inp
 
 # Clave
 vector=67 # 103 = 0x67
+key="1032456789abcdef"
 
 # Directorio que contendrá los archivos
 mkdir -p Resultados
 
 # Cifrar con clave débil y semi-débil usando los modos ECB, CBC y OFB de DES.
-for key in "0101010101010101" "011F011F010E010E"
+for wkey in "0101010101010101" "011F011F010E010E"
     do
         for mode in "des-ecb" "des-cbc" "des-ofb"
             do
-                if [ $key == "0101010101010101" ]
+                if [ $wkey == "0101010101010101" ]
                     then
                     sec="weak"
                 else
                     sec="semiweak"
                 fi
 
-                openssl enc -$mode -K $key -iv $vector -in input.bin -out ./Resultados/input_$mode"_"$sec.bin
-                openssl enc -$mode -K $key -iv $vector -in input1.bin -out ./Resultados/input1_$mode"_"$sec.bin
+                openssl enc -$mode -K $wkey -iv $vector -in input.bin -out ./Resultados/input_$mode"_"$sec.bin
+                openssl enc -$mode -K $wkey -iv $vector -in input1.bin -out ./Resultados/input1_$mode"_"$sec.bin
             done
     done
 
 # Cifrar con la clave generada usando los modos ECB y CBC de DES, AES-128 y AES-256.
-key="1032456789abcdef"
-
 for mode in "des-ecb" "des-cbc" "aes-128-ecb" "aes-128-cbc" "aes-256-ecb" "aes-256-cbc"
     do
         openssl enc -$mode -K $key -iv $vector -in input.bin -out ./Resultados/input_$mode.bin
