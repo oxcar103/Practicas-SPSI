@@ -8,7 +8,7 @@ cat input.bin | head -c 2 > input1.bin && printf '\100' >> input1.bin && cat inp
 
 # Clave
 vector=67 # 103 = 0x67
-key="1032456789abcdef"
+key="2103456789abcdef"
 
 # Directorio que contendrá los archivos
 mkdir -p Resultados
