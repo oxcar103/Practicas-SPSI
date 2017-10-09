@@ -145,11 +145,42 @@ Criptosistemas Simétricos} % Subtitle
 	
 \section{Comparación y análisis de los resultados}
 	\subsection{Modos ECB, CBC y OFB de DES con claves débil y semi-débil}
+		En la encriptación por el modo ECB se trabaja por bloques de 64 bits de forma independiente, por lo que podemos ver
+		que tanto la clave débil como la semi-débil (y también la fuerte como veremos más adelante) hacen que el primer
+		bloque sea diferente entre \textit{input1\_des-ecb\_weak.bin} y \textit{input\_des-ecb\_weak.bin}, y entre
+		\textit{input1\_des-ecb\_semiweak.bin} y \textit{input\_des-ecb\_semiweak.bin} pues \textit{input1.bin} y
+		\textit{input.bin} sólo difieren en el primer bloque.
+		
+		En la encriptación por el modo CBC se trabaja por bloques de 64 bits combinados con el criptograma anterior mediante
+		la operación xor ($\bigoplus$), por lo que podemos ver que en la clave débil, por tener todas las claves de ronda
+		iguales, que los bloques de 64 bits pares\footnote{Entendamos como bloques de 64 bits pares aquellos que comprenden
+						los bits 65-128, 193-256, \dots \label{bits-parity}} presentan el vector de inicialización junto con el primer bloque descifrado pues
+		como el resto de bloques son 0's no lo alteran y que todas las líneas de \textit{input1\_des-ecb\_weak.bin} y
+		\textit{input\_des-ecb\_weak.bin} se repiten.
+
+		En la encriptación por el modo OFB se trabaja por bloques de 64 bits combinados con el cifrado $(n-1)$-ésimo del vector
+		de inicialización mediante la operación xor ($\bigoplus$), por lo que podemos ver que en la clave débil, por tener
+		todas las claves de ronda iguales, que los bloques de 64 bits pares$^{\ref{bits-parity}}$ presentan el vector de
+		inicialización y que todas los archivos \textit{input1\_des-ecb\_weak.bin} y \textit{input\_des-ecb\_weak.bin}, y 
+		\textit{input1\_des-ecb\_semiweak.bin} y \textit{input\_des-ecb\_semiweak.bin} son idéticos salvo el primer bloque
+		pues \textit{input1.bin} y \textit{input.bin} sólo difieren en él.
+				
 	\subsection{Modo ECB de DES con clave fuerte}
+		
+		
 	\subsection{Modo CBC de DES con clave fuerte}
+		
+		
 	\subsection{Modo ECB de AES-128 y AES-256 con clave fuerte}
+		
+		
 	\subsection{Modo CBC de AES-128 y AES-256 con clave fuerte}
+		
+		
 	\subsection{Modo OFB de AES-192 con clave fuerte}
+		
+		
 	\subsection{Otros cifrados simétricos: Camellia}
+		
 	
 \end{document}
