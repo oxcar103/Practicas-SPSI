@@ -166,10 +166,15 @@ Criptosistemas Simétricos} % Subtitle
 		pues \textit{input1.bin} y \textit{input.bin} sólo difieren en él.
 				
 	\subsection{Modo ECB de DES con clave fuerte}
-		
+		En este modo de encriptación al trabajar por bloques de 64 bits de forma independiente, el hecho de trabajar con
+		una clave fuerte no impide que la única diferencia entre \textit{input1\_des-ecb.bin} y \textit{input\_des-ecb.bin}
+		sea el primer bloque pues es la única diferencia entre \textit{input1.bin} y \textit{input.bin}.
 		
 	\subsection{Modo CBC de DES con clave fuerte}
-		
+		En este modo de encriptación al trabajar por bloques de 64 bits combinados con el criptograma anterior mediante
+		la operación xor ($\bigoplus$), el hecho de trabajar con una clave fuerte rompe la debilidad que tenían las claves
+		débiles de que las claves de ronda se repetían y hace que \textit{input1\_des-cbc.bin} y \textit{input\_des-cbc.bin}
+		sean completamente diferentes a pesar de haber una diferencia tan leve entre \textit{input1.bin} y \textit{input.bin}.
 		
 	\subsection{Modo ECB de AES-128 y AES-256 con clave fuerte}
 		
