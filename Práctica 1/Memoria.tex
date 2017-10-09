@@ -177,10 +177,20 @@ Criptosistemas Simétricos} % Subtitle
 		sean completamente diferentes a pesar de haber una diferencia tan leve entre \textit{input1.bin} y \textit{input.bin}.
 		
 	\subsection{Modo ECB de AES-128 y AES-256 con clave fuerte}
-		
+		Este modo de encriptación es similar al del DES salvo que cambia el tamaño de bloque, es decir, trabajar por bloques
+		de 128 bits de forma independiente en lugar de hacerlo con bloques de 64 bits y el tamaño de la clave ahora es de
+		128 bits para AES-128 y de 256 bits para AES-256 en lugar de los 64 bits para DES. Al trabajar con bloques independientes
+		vuelve a repetirse el problema del DES, y es que \textit{input1\_aes-128-ecb.bin} y \textit{input\_aes-128-ecb.bin}
+		al igual que \textit{input1\_aes-256-ecb.bin} y \textit{input\_aes-256-ecb.bin} sólo difieren en el primer bloque
+		pues es donde reside la única diferencia entre \textit{input1.bin} y \textit{input.bin} pero en este caso el bloque
+		es de 128 bits.
 		
 	\subsection{Modo CBC de AES-128 y AES-256 con clave fuerte}
-		
+		Este modo de encriptación es similar al del DES salvo que cambia el tamaño de bloque, es decir, trabajar por bloques
+		de 128 bits combinándolos con el criptograma generado anteriormente mediante $\bigoplus$. De esta forma, con una clave
+		fuerte logramos que sean totalmente diferentes tanto \textit{input1\_aes-128-cbc.bin} y \textit{input\_aes-128-cbc.bin}
+		como \textit{input1\_aes-256-ecb.bin} y \textit{input\_aes-256-ecb.bin} a pesar de la similitud entre \textit{input1.bin}
+		y \textit{input.bin}.
 		
 	\subsection{Modo OFB de AES-192 con clave fuerte}
 		
