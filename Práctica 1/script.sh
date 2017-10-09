@@ -7,7 +7,7 @@ dd if=/dev/zero of=input.bin bs=128 count=1 2> /dev/null
 cat input.bin | head -c 2 > input1.bin && printf '\100' >> input1.bin && cat input.bin | tail -c 125 >> input1.bin
 
 # Clave
-vector=67 # 103 = 0x67
+vector="67" # 103 = 0x67
 key="2103456789abcdef"
 
 # Directorio que contendrá los archivos
