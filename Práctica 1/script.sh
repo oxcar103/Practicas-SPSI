@@ -39,9 +39,9 @@ for mode in "des-ecb" "des-cbc" "aes-128-ecb" "aes-128-cbc" "aes-256-ecb" "aes-2
 
 # Cifrar y descifrar con la clave generada usando AES-192 en modo OFB
 mode="aes-192-ofb"
-openssl enc -$mode -K $key -iv $vector -in input.bin -out ./Resultados/input_$mode.bin
-openssl enc -d -$mode -K $key -iv $vector -in ./Resultados/input_$mode.bin -out ./Resultados/output.bin
-openssl enc -$mode -K $key -iv $vector -in ./Resultados/output.bin -out ./Resultados/output_$mode.bin
+openssl enc -$mode -K $key -iv $vector -in input.bin -out ./Resultados/output.bin
+openssl enc -d -$mode -K $key -iv $vector -in ./Resultados/output.bin -out ./Resultados/output_d_$mode.bin
+openssl enc -$mode -K $key -iv $vector -in ./Resultados/output.bin -out ./Resultados/output_e_$mode.bin
 
 # Cifrar con la clave generada usando los modos ECB y CBC de Camellia-128, Camellia-192 y Camellia-256.
 for mode in "camellia-128-ecb" "camellia-128-cbc" "camellia-192-ecb" "camellia-192-cbc" "camellia-256-ecb" "camellia-256-cbc"
