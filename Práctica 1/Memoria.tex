@@ -145,40 +145,50 @@ Criptosistemas Simétricos} % Subtitle
 	
 \section{Comparación y análisis de los resultados}
 	\subsection{Modos ECB, CBC y OFB de DES con claves débil y semi-débil}
-		En la encriptación por el modo ECB se trabaja por bloques de 64 bits de forma independiente, por lo que podemos ver
-		que tanto la clave débil como la semi-débil (y también la fuerte como veremos más adelante) hacen que el primer
-		bloque sea diferente entre \textit{input1\_des-ecb\_weak.bin} y \textit{input\_des-ecb\_weak.bin}, y entre
-		\textit{input1\_des-ecb\_semiweak.bin} y \textit{input\_des-ecb\_semiweak.bin} pues \textit{input1.bin} y
-		\textit{input.bin} sólo difieren en el primer bloque.
+		En la encriptación por el modo ECB se trabaja por bloques de 64 bits de forma independiente\footnote{El algoritmo del
+		modo ECB sería: \[c_i := e_k(m_i) \text{ para cifrar}\] \[m_i := d_k(c_i) \text{ para descifrar}\] con $e_k$ y $d_k$
+		las funciones de cifrado y descrifado respectivamente generadas por la clave $k$, $c_i$ el $i$-ésimo criptograma del
+		mensaje y $m_i$ el $i$-ésimo bloque del mensaje. \label{ecb}}, por lo que podemos ver que tanto la clave débil como
+		la semi-débil (y también la fuerte como veremos más adelante) hacen que el primer bloque sea diferente entre
+		\textit{input1\_des-ecb\_weak.bin} y \textit{input\_des-ecb\_weak.bin}, y entre \textit{input1\_des-ecb\_semiweak.bin}
+		y \textit{input\_des-ecb\_semiweak.bin} pues \textit{input1.bin} y \textit{input.bin} sólo difieren en el primer
+		bloque.
 		
-		En la encriptación por el modo CBC se trabaja por bloques de 64 bits combinados con el criptograma anterior mediante
-		la operación xor ($\bigoplus$), por lo que podemos ver que en la clave débil, por tener todas las claves de ronda
-		iguales, que los bloques de 64 bits pares\footnote{Entendamos como bloques de 64 bits pares aquellos que comprenden
-						los bits 65-128, 193-256, \dots \label{bits-parity}} presentan el vector de inicialización junto con el primer bloque descifrado pues
-		como el resto de bloques son 0's no lo alteran y que todas las líneas de \textit{input1\_des-ecb\_weak.bin} y
-		\textit{input\_des-ecb\_weak.bin} se repiten.
+		En la encriptación por el modo CBC se trabaja por bloques de 64 bits combinados con el criptograma anterior mediante la
+		operación xor ($\oplus$)\footnote{El algoritmo del modo CBC sería: \[c_i := e_k(m_i \oplus c_{i-1})\text{ para cifrar}\]
+		\[m_i := d_k(c_i) \oplus c_{i-1} \text{ para descifrar}\] con $e_k$ y $d_k$ las funciones de cifrado y descrifado
+		respectivamente generadas por la clave $k$, $c_i$ el $i$-ésimo criptograma del mensaje, siendo $c_0$ el vector de
+		inicialización y $m_i$ el $i$-ésimo bloque del mensaje. \label{cbc}}, por lo que podemos ver que en la clave débil, por
+		tener todas las claves de ronda iguales, que los bloques de 64 bits pares\footnote{Entendamos como bloques de 64 bits
+		pares aquellos que comprenden los bits 65-128, 193-256, 321-384 \dots, es decir, desde el bit $(2n-1) \cdot 64$ hasta
+		el bit $2n \cdot 64$ con $n \in \mathbb{N}^*$. \label{bits-parity}} presentan el vector de inicialización junto con
+		el primer bloque descifrado pues como el resto de bloques son $0's$ no lo alteran, y que todas las líneas de
+		\textit{input1\_des-ecb\_weak.bin} y \textit{input\_des-ecb\_weak.bin} se repiten.
 
 		En la encriptación por el modo OFB se trabaja por bloques de 64 bits combinados con el cifrado $(n-1)$-ésimo del vector
-		de inicialización mediante la operación xor ($\bigoplus$), por lo que podemos ver que en la clave débil, por tener
-		todas las claves de ronda iguales, que los bloques de 64 bits pares$^{\ref{bits-parity}}$ presentan el vector de
-		inicialización y que todas los archivos \textit{input1\_des-ecb\_weak.bin} y \textit{input\_des-ecb\_weak.bin}, y 
-		\textit{input1\_des-ecb\_semiweak.bin} y \textit{input\_des-ecb\_semiweak.bin} son idéticos salvo el primer bloque
+		de inicialización mediante la operación xor ($\oplus$)\footnote{El algoritmo del modo OFB sería: \[c_i := m_i \oplus
+		e_k(s_{i-1}) \text{ para cifrar}\] \[m_i := c_i \oplus e_k(s_{i-1}) \text{ para descifrar}\] con $s_i = e_k(s_{i-1})$
+		siendo $s_0$ el vector de inicialización $e_k$ la función de cifrado generada por la clave $k$, $c_i$ el $i$-ésimo
+		criptograma del mensaje, y $m_i$ el $i$-ésimo bloque del mensaje. \label{ofb}}, por lo que podemos ver que en la clave
+		débil, por tener todas las claves de ronda iguales, que los bloques de 64 bits pares$^{\ref{bits-parity}}$ presentan el
+		vector de inicialización y que todas los archivos \textit{input1\_des-ecb\_weak.bin} y \textit{input\_des-ecb\_weak.bin},
+		y \textit{input1\_des-ecb\_semiweak.bin} y \textit{input\_des-ecb\_semiweak.bin} son idéticos salvo el primer bloque
 		pues \textit{input1.bin} y \textit{input.bin} sólo difieren en él.
 				
 	\subsection{Modo ECB de DES con clave fuerte}
-		En este modo de encriptación al trabajar por bloques de 64 bits de forma independiente, el hecho de trabajar con
+		En este modo de encriptación al trabajar por bloques de 64 bits de forma independiente$^{\ref{ecb}}$, el hecho de trabajar con
 		una clave fuerte no impide que la única diferencia entre \textit{input1\_des-ecb.bin} y \textit{input\_des-ecb.bin}
 		sea el primer bloque pues es la única diferencia entre \textit{input1.bin} y \textit{input.bin}.
 		
 	\subsection{Modo CBC de DES con clave fuerte}
 		En este modo de encriptación al trabajar por bloques de 64 bits combinados con el criptograma anterior mediante
-		la operación xor ($\bigoplus$), el hecho de trabajar con una clave fuerte rompe la debilidad que tenían las claves
+		la operación xor ($\oplus$)$^{\ref{cbc}}$, el hecho de trabajar con una clave fuerte rompe la debilidad que tenían las claves
 		débiles de que las claves de ronda se repetían y hace que \textit{input1\_des-cbc.bin} y \textit{input\_des-cbc.bin}
 		sean completamente diferentes a pesar de haber una diferencia tan leve entre \textit{input1.bin} y \textit{input.bin}.
 		
 	\subsection{Modo ECB de AES-128 y AES-256 con clave fuerte}
 		Este modo de encriptación es similar al del DES salvo que cambia el tamaño de bloque, es decir, trabajar por bloques
-		de 128 bits de forma independiente en lugar de hacerlo con bloques de 64 bits y el tamaño de la clave ahora es de
+		de 128 bits de forma independiente$^{\ref{ecb}}$ en lugar de hacerlo con bloques de 64 bits y el tamaño de la clave ahora es de
 		128 bits para AES-128 y de 256 bits para AES-256 en lugar de los 64 bits para DES. Al trabajar con bloques independientes
 		vuelve a repetirse el problema del DES, y es que \textit{input1\_aes-128-ecb.bin} y \textit{input\_aes-128-ecb.bin}
 		al igual que \textit{input1\_aes-256-ecb.bin} y \textit{input\_aes-256-ecb.bin} sólo difieren en el primer bloque
@@ -187,7 +197,7 @@ Criptosistemas Simétricos} % Subtitle
 		
 	\subsection{Modo CBC de AES-128 y AES-256 con clave fuerte}
 		Este modo de encriptación es similar al del DES salvo que cambia el tamaño de bloque, es decir, trabajar por bloques
-		de 128 bits combinándolos con el criptograma generado anteriormente mediante $\bigoplus$. De esta forma, con una clave
+		de 128 bits combinándolos con el criptograma generado anteriormente mediante $\oplus$ $^{\ref{cbc}}$. De esta forma, con una clave
 		fuerte logramos que sean totalmente diferentes tanto \textit{input1\_aes-128-cbc.bin} y \textit{input\_aes-128-cbc.bin}
 		como \textit{input1\_aes-256-ecb.bin} y \textit{input\_aes-256-ecb.bin} a pesar de la similitud entre \textit{input1.bin}
 		y \textit{input.bin}.
