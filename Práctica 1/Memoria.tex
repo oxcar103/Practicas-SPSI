@@ -215,6 +215,21 @@ Criptosistemas Simétricos} % Subtitle
 		que, como no podría ser de otro modo, son además iguales que \textit{input.bin}
 		
 	\subsection{Otros cifrados simétricos: Camellia}
+		Camellia es un algoritmo de cifrado simétrico de bloques desarrollado en Japón por Mitsubishi Electric y la NTT
+		\footnote{Nippon Telegraph and Telephone Corporation.} of Japan con 128 bits de tamaño de bloque y varios tamaños de
+		clave: 128, 192 ó 256 bits.
 		
+		Camellia usa cifrado de Feistel de 18 ó 24 rondas según el tamaño de la clave, y cada 6 rondas, se aplica una
+		transformación lógica. Además, usa 4 S-cajas de 8$\times$8 bits con transformaciones afines de entrada y salida así
+		como operaciones lógicas, junto con \textit{key whitening}\footnote{\textit{Key whitening} es una técnica orientada
+		a incrementar la seguridad de un cifrado por bloques iterado, dificultando así el ataque por fuerza bruta. Consiste
+		en combinar parcialmente el mensaje con la clave y la forma más usual de hacerlo es usar la operación xor antes de
+		la primera ronda de encriptación y otra vez después de la última.}.
+
+		Se considera que Camellia es imposible de romper por ataques de fuerza bruta sobre las claves (incluso sobre las de
+		128 bits) con la tecnología actual y tampoco hay ataques conocidos que puedan debilitarlo suficientemente como para
+		aplicar después otros ataques y lograr romperlo. Sus niveles de seguridad y su velocidad de procesado son comparables
+		al cifrado AES de forma que su uso ha sido aprobado por \textbf{CRYPTREC} (Japón), \textbf{NESSIE} (Unión Europea)
+		e \textbf{ISO} (\textit{International Organization for Standardization}).
 	
 \end{document}
