@@ -185,7 +185,7 @@ Criptosistemas Simétricos} % Subtitle
 		claves débiles de que las claves de ronda se repetían y hace que \textit{input1\_des-cbc.bin} y \textit{input\_des-cbc.bin}
 		sean completamente diferentes a pesar de haber una diferencia tan leve entre \textit{input1.bin} y \textit{input.bin}.
 		
-	\subsection{Modo ECB de AES-128 y AES-256 con clave fuerte}
+	\subsection{Modo ECB de AES-128 y AES-256 con clave fuerte}\label{AES-ECB}
 		Este modo de encriptación es similar al del DES salvo que cambia el tamaño de la clave (en lugar de 64 bit como en
 		DES es de 128 bits para AES-128 y de 256 bits para AES-256) y el tamaño de bloque, es decir, trabajar por bloques
 		de 128 bits (frente a los 64 bits de DES) de forma independiente$^{\ref{ecb}}$. Al trabajar con bloques independientes
@@ -194,7 +194,7 @@ Criptosistemas Simétricos} % Subtitle
 		pues es donde reside la única diferencia entre \textit{input1.bin} y \textit{input.bin} pero en este caso el bloque
 		es de 128 bits.
 		
-	\subsection{Modo CBC de AES-128 y AES-256 con clave fuerte}
+	\subsection{Modo CBC de AES-128 y AES-256 con clave fuerte}\label{AES-CBC}
 		Este modo de encriptación es similar al del DES salvo que cambia el tamaño de la clave (en lugar de 64 bit como en
 		DES es de 128 bits para AES-128 y de 256 bits para AES-256) y el tamaño de bloque, es decir, trabajar por bloques
 		de 128 bits (frente a los 64 bits de DES) combinándolos con el criptograma generado anteriormente mediante $\oplus$
@@ -231,5 +231,20 @@ Criptosistemas Simétricos} % Subtitle
 		aplicar después otros ataques y lograr romperlo. Sus niveles de seguridad y su velocidad de procesado son comparables
 		al cifrado AES de forma que su uso ha sido aprobado por \textbf{CRYPTREC} (Japón), \textbf{NESSIE} (Unión Europea)
 		e \textbf{ISO} (\textit{International Organization for Standardization}).
-	
+		
+		En cuanto a los resultados de la experimentación con \textit{openssl}, obtenemos los mismos resultados que obtuvimos
+		con AES tanto en modo \hyperref[AES-ECB]{ECB} como en \hyperref[AES-CBC]{CBC}:
+		\begin{itemize}
+			\item \textbf{ECB}: Al trabajar con bloques independientes, podemos observar que los pares de archivos
+			\textit{input1\_camellia-128-ecb.bin} y \textit{input\_camellia-128-ecb.bin}, \textit{input1\_camellia-192-ecb.bin}
+			y \textit{input\_camellia-192-ecb.bin}, y por último \textit{input1\_camellia-256-ecb.bin} y
+			\textit{input\_camellia-256-ecb.bin} sólo difieren en el primer bloque de 128 bits pues es el tamaño de bloque y
+			la única diferencia entre \textit{input1.bin} y \textit{input.bin} reside al principio de ellos.
+			
+			\item \textbf{CBC}: Debido a la vinculación entre el último mensaje cifrado y el siguiente mensaje a cifrar, se
+			logra que los pares \textit{input1\_camellia-128-cbc.bin} y \textit{input\_camellia-128-cbc.bin},
+			\textit{input1\_camellia-192-cbc.bin} y \textit{input\_camellia-192-cbc.bin}, y finalmente \textit{input1\_camellia-256-cbc.bin}
+			y \textit{input\_camellia-256-cbc.bin} sean totalmente diferentes a pesar de la similitud entre \textit{input1.bin}
+			y \textit{input.bin}.
+		\end{itemize}
 \end{document}
