@@ -150,8 +150,8 @@ Criptosistemas Simétricos} % Subtitle
 		las funciones de cifrado y descrifado respectivamente generadas por la clave $k$, $c_i$ el $i$-ésimo criptograma, y
 		$m_i$ el $i$-ésimo bloque. \label{ecb}}, por lo que podemos ver que tanto la clave débil como la semi-débil (y también
 		la fuerte como veremos más adelante) hacen que el primer bloque sea diferente entre	\textit{input1\_des-ecb\_weak.bin}
-		y \textit{input\_des-ecb\_weak.bin}, y entre \textit{input1\_des-ecb\_semiweak.bin} y \textit{input\_des-ecb\_semiweak.bin}
-		pues \textit{input1.bin} y \textit{input.bin} sólo difieren en el primer bloque.
+		e \textit{input\_des-ecb\_weak.bin}, y entre \textit{input1\_des-ecb\_semiweak.bin} e \textit{input\_des-ecb\_semiweak.bin}
+		pues \textit{input1.bin} e \textit{input.bin} sólo difieren en el primer bloque.
 		
 		En la encriptación por el modo CBC se trabaja por bloques de 64 bits combinados con el criptograma anterior mediante la
 		operación xor ($\oplus$)\footnote{El algoritmo del modo CBC sería: \[c_i := e_k(m_i \oplus c_{i-1})\text{ para cifrar}\]
@@ -162,7 +162,7 @@ Criptosistemas Simétricos} % Subtitle
 		los bits 65-128, 193-256, 321-384 \dots, es decir, desde el bit $(2n-1) \cdot 64$ hasta el bit $2n \cdot 64$ con $n
 		\in \mathbb{N}^*$. \label{bits-parity}} presentan el vector de inicialización junto con el primer bloque descifrado
 		pues como el resto de bloques son $0's$ no lo alteran, y que todas las líneas de \textit{input1\_des-ecb\_weak.bin}
-		y \textit{input\_des-ecb\_weak.bin} se repiten.
+		e \textit{input\_des-ecb\_weak.bin} se repiten.
 
 		En la encriptación por el modo OFB se trabaja por bloques de 64 bits combinados con el cifrado $(n-1)$-ésimo del vector
 		de inicialización mediante la operación xor ($\oplus$)\footnote{El algoritmo del modo OFB sería: \[c_i := m_i \oplus
@@ -170,28 +170,28 @@ Criptosistemas Simétricos} % Subtitle
 		con $s_0$ el vector de inicialización, $e_k \equiv d_k$ la función de cifrado y descifrado generada por la clave $k$,
 		$c_i$ el $i$-ésimo criptograma, y $m_i$ el $i$-ésimo bloque. \label{ofb}}, por lo que podemos ver que en la clave débil,
 		por tener todas las claves de ronda iguales, que los bloques de 64 bits pares$^{\ref{bits-parity}}$ presentan el vector
-		de inicialización y que todas los archivos \textit{input1\_des-ecb\_weak.bin} y \textit{input\_des-ecb\_weak.bin}, y
-		\textit{input1\_des-ecb\_semiweak.bin} y \textit{input\_des-ecb\_semiweak.bin} son idéticos salvo el primer bloque
-		pues \textit{input1.bin} y \textit{input.bin} sólo difieren en él.
+		de inicialización y que todas los archivos \textit{input1\_des-ecb\_weak.bin} e \textit{input\_des-ecb\_weak.bin}, e
+		\textit{input1\_des-ecb\_semiweak.bin} e \textit{input\_des-ecb\_semiweak.bin} son idéticos salvo el primer bloque
+		pues \textit{input1.bin} e \textit{input.bin} sólo difieren en él.
 				
 	\subsection{Modo ECB de DES con clave fuerte}
 		En este modo de encriptación al trabajar por bloques de 64 bits de forma independiente$^{\ref{ecb}}$, el hecho de trabajar
-		con una clave fuerte no impide que la única diferencia entre \textit{input1\_des-ecb.bin} y \textit{input\_des-ecb.bin}
-		sea el primer bloque pues es la única diferencia entre \textit{input1.bin} y \textit{input.bin}.
+		con una clave fuerte no impide que la única diferencia entre \textit{input1\_des-ecb.bin} e \textit{input\_des-ecb.bin}
+		sea el primer bloque pues es la única diferencia entre \textit{input1.bin} e \textit{input.bin}.
 		
 	\subsection{Modo CBC de DES con clave fuerte}
 		En este modo de encriptación al trabajar por bloques de 64 bits combinados con el criptograma anterior mediante
 		la operación xor ($\oplus$)$^{\ref{cbc}}$, el hecho de trabajar con una clave fuerte rompe la debilidad que tenían las
-		claves débiles de que las claves de ronda se repetían y hace que \textit{input1\_des-cbc.bin} y \textit{input\_des-cbc.bin}
-		sean completamente diferentes a pesar de haber una diferencia tan leve entre \textit{input1.bin} y \textit{input.bin}.
+		claves débiles de que las claves de ronda se repetían y hace que \textit{input1\_des-cbc.bin} e \textit{input\_des-cbc.bin}
+		sean completamente diferentes a pesar de haber una diferencia tan leve entre \textit{input1.bin} e \textit{input.bin}.
 		
 	\subsection{Modo ECB de AES-128 y AES-256 con clave fuerte}\label{AES-ECB}
 		Este modo de encriptación es similar al del DES salvo que cambia el tamaño de la clave (en lugar de 64 bit como en
 		DES es de 128 bits para AES-128 y de 256 bits para AES-256) y el tamaño de bloque, es decir, trabajar por bloques
 		de 128 bits (frente a los 64 bits de DES) de forma independiente$^{\ref{ecb}}$. Al trabajar con bloques independientes
-		vuelve a repetirse el problema del DES, y es que \textit{input1\_aes-128-ecb.bin} y \textit{input\_aes-128-ecb.bin}
-		al igual que \textit{input1\_aes-256-ecb.bin} y \textit{input\_aes-256-ecb.bin} sólo difieren en el primer bloque
-		pues es donde reside la única diferencia entre \textit{input1.bin} y \textit{input.bin} pero en este caso el bloque
+		vuelve a repetirse el problema del DES, y es que \textit{input1\_aes-128-ecb.bin} e \textit{input\_aes-128-ecb.bin}
+		al igual que \textit{input1\_aes-256-ecb.bin} e \textit{input\_aes-256-ecb.bin} sólo difieren en el primer bloque
+		pues es donde reside la única diferencia entre \textit{input1.bin} e \textit{input.bin} pero en este caso el bloque
 		es de 128 bits.
 		
 	\subsection{Modo CBC de AES-128 y AES-256 con clave fuerte}\label{AES-CBC}
@@ -199,8 +199,8 @@ Criptosistemas Simétricos} % Subtitle
 		DES es de 128 bits para AES-128 y de 256 bits para AES-256) y el tamaño de bloque, es decir, trabajar por bloques
 		de 128 bits (frente a los 64 bits de DES) combinándolos con el criptograma generado anteriormente mediante $\oplus$
 		$^{\ref{cbc}}$. De esta forma, al trabajar con una clave fuerte logramos que sean totalmente diferentes tanto
-		\textit{input1\_aes-128-cbc.bin} y \textit{input\_aes-128-cbc.bin} como \textit{input1\_aes-256-ecb.bin} y
-		\textit{input\_aes-256-ecb.bin} a pesar de la similitud entre \textit{input1.bin} y \textit{input.bin}.
+		\textit{input1\_aes-128-cbc.bin} e \textit{input\_aes-128-cbc.bin} como \textit{input1\_aes-256-ecb.bin} e
+		\textit{input\_aes-256-ecb.bin} a pesar de la similitud entre \textit{input1.bin} e \textit{input.bin}.
 		
 	\subsection{Modo OFB de AES-192 con clave fuerte}
 		Este modo de encriptación es similar al del DES salvo que cambia el tamaño de la clave (en lugar de 64 bit como en
@@ -236,15 +236,15 @@ Criptosistemas Simétricos} % Subtitle
 		con AES tanto en modo \hyperref[AES-ECB]{ECB} como en \hyperref[AES-CBC]{CBC}:
 		\begin{itemize}
 			\item \textbf{ECB}: Al trabajar con bloques independientes, podemos observar que los pares de archivos
-			\textit{input1\_camellia-128-ecb.bin} y \textit{input\_camellia-128-ecb.bin}, \textit{input1\_camellia-192-ecb.bin}
-			y \textit{input\_camellia-192-ecb.bin}, y por último \textit{input1\_camellia-256-ecb.bin} y
+			\textit{input1\_camellia-128-ecb.bin} e \textit{input\_camellia-128-ecb.bin}, \textit{input1\_camellia-192-ecb.bin}
+			e \textit{input\_camellia-192-ecb.bin}, y por último \textit{input1\_camellia-256-ecb.bin} e
 			\textit{input\_camellia-256-ecb.bin} sólo difieren en el primer bloque de 128 bits pues es el tamaño de bloque y
-			la única diferencia entre \textit{input1.bin} y \textit{input.bin} reside al principio de ellos.
+			la única diferencia entre \textit{input1.bin} e \textit{input.bin} reside al principio de ellos.
 			
 			\item \textbf{CBC}: Debido a la vinculación entre el último mensaje cifrado y el siguiente mensaje a cifrar, se
-			logra que los pares \textit{input1\_camellia-128-cbc.bin} y \textit{input\_camellia-128-cbc.bin},
-			\textit{input1\_camellia-192-cbc.bin} y \textit{input\_camellia-192-cbc.bin}, y finalmente \textit{input1\_camellia-256-cbc.bin}
-			y \textit{input\_camellia-256-cbc.bin} sean totalmente diferentes a pesar de la similitud entre \textit{input1.bin}
-			y \textit{input.bin}.
+			logra que los pares \textit{input1\_camellia-128-cbc.bin} e \textit{input\_camellia-128-cbc.bin},
+			\textit{input1\_camellia-192-cbc.bin} e \textit{input\_camellia-192-cbc.bin}, y finalmente \textit{input1\_camellia-256-cbc.bin}
+			e \textit{input\_camellia-256-cbc.bin} sean totalmente diferentes a pesar de la similitud entre \textit{input1.bin}
+			e \textit{input.bin}.
 		\end{itemize}
 \end{document}
