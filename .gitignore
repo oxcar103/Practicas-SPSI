@@ -220,9 +220,12 @@ TSWLatexianTemp*
 *-tags.tex
 
 
+# Temporary files
+*~
 
 # Ignorar archivos de resultados de las prácticas
-Práctica\ */Resultados/*
-Práctica\ 1/clave
-Práctica\ */*.bin
-Práctica\ */*.pem
+Resultados/
+input.bin
+input1.bin
+clave
+Claves/
