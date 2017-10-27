@@ -25,6 +25,11 @@ echo $mode >> $fkey
 openssl rsautl -encrypt -pubin -inkey $name"RSApub.pem" -in $fkey -out $fkey".enc"
 openssl enc $mode -pass file:$fkey -in "input.bin" -out "output.bin"
 
+# Descifrando...
+openssl rsautl -decrypt -passin pass:$passwd -inkey $name"RSApriv.pem" -in $fkey".enc" -out $fkey".dec"
+dec_mode=`cat $fkey".dec" | tail -n 1`
+openssl enc -d $dec_mode -pass file:$fkey".dec" -in "output.bin" -out "output_dec.bin"
+
 # Generación de clave por curva elíptica
 openssl ecparam -name $curve -out "stdECparam.pem"
 openssl ecparam -in "stdECparam.pem" -genkey -out $name"ECkey.pem" 
