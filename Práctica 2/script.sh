@@ -19,8 +19,13 @@ openssl genrsa -out ./Claves/$name"RSAkey.pem" $key_size
 openssl rsa -aes128 -passout pass:$passwd -in ./Claves/$name"RSAkey.pem" -out ./Claves/$name"RSApriv.pem"
 openssl rsa -pubout -in ./Claves/$name"RSAkey.pem" -out ./Claves/$name"RSApub.pem"
 
+# Creando archivos para mostrar los valores
+openssl rsa -text -noout -in ./Claves/$name"RSAkey.pem" -out ./Resultados/$name"RSAkey.txt"
+openssl rsa -text -noout -passin pass:$passwd -in ./Claves/$name"RSApriv.pem" -out ./Resultados/$name"RSApriv.txt"
+openssl rsa -text -noout -pubin -in ./Claves/$name"RSApub.pem" -out ./Resultados/$name"RSApub.txt"
+
 # Cifrar con clave pública
-# openssl rsautl -encrypt -passin pass:$passwd -pubin -inkey $name"RSApub.pem" -in "input.bin" -out "input_RSA.bin"
+openssl rsautl -encrypt -passin pass:$passwd -pubin -inkey ./Claves/$name"RSApub.pem" -in ./Resultados/"input.bin" -out ./Resultados/"input_RSA.bin" 2> ./Resultados/error.txt
 
 # Cifrado híbrido
 # Cifrando...
@@ -39,3 +44,10 @@ openssl ecparam -name $curve -out ./Claves/"stdECparam.pem"
 openssl ecparam -in ./Claves/"stdECparam.pem" -genkey -out ./Claves/$name"ECkey.pem"
 openssl ec -des3 -passout pass:$passwd -in ./Claves/$name"ECkey.pem" -out ./Claves/$name"ECpriv.pem"
 openssl ec -pubout -in ./Claves/$name"ECkey.pem" -out ./Claves/$name"ECpub.pem"
+
+# Creando archivos para mostrar los valores
+openssl ecparam -param_enc explicit -in ./Claves/"stdECparam.pem" -out ./Resultados/"stdECparam.txt"
+openssl ec -text -noout -in ./Claves/$name"ECkey.pem" -out ./Resultados/$name"ECkey.txt"
+openssl ec -text -noout -passin pass:$passwd -in ./Claves/$name"ECpriv.pem" -out ./Resultados/$name"ECpriv.txt"
+openssl ec -text -noout -pubin -in ./Claves/$name"ECpub.pem" -out ./Resultados/$name"ECpub.txt"
+
