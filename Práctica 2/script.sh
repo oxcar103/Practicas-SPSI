@@ -39,7 +39,7 @@ openssl enc $mode -pass file:./Resultados/$fkey -in ./Resultados/"input.bin" -ou
 openssl rsautl -decrypt -passin pass:$passwd -inkey ./Claves/$name"RSApriv.pem" -in ./Resultados/$fkey".enc" -out ./Resultados/$fkey".dec"
 dec_mode=`cat ./Resultados/$fkey".dec" | tail -n 1`
 openssl enc -d $dec_mode -pass file:./Resultados/$fkey".dec" -in ./Resultados/"output.bin" -out ./Resultados/"output_dec.bin"
-xxd ./Resultados/output_dec.bin > xxd ./Resultados/output_dec.txt
+xxd ./Resultados/output_dec.bin > ./Resultados/output_dec.txt
 
 # Generación de clave por curva elíptica
 openssl ecparam -name $curve -out ./Claves/"stdECparam.pem"
