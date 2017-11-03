@@ -118,7 +118,20 @@ Criptosistemas Asimétricos} % Subtitle
 		{\textit{dd}} con entrada \textit{/dev/zero}.
 		
 	\subsection{Claves RSA}
-	
+		Para generar las claves RSA, nos basta con usar \href{http://manpages.ubuntu.com/manpages/zesty/en/man1/openssl.1ssl.html}
+		{\textit{openssl}} con la opción \href{https://www.openssl.org/docs/man1.0.2/apps/genrsa.html}{\textit{genrsa}} para
+		generar una clave del tamaño que queramos, y con \href{https://www.openssl.org/docs/man1.0.2/apps/rsa.html}{\textit{rsa}}
+		para trabajar con ella, por ejemplo, para cifrarla o para extraer la clave pública de la privada:
+		\begin{small}
+			\verb|openssl genrsa -out $name"RSAkey.pem" $key_size| \\
+			\verb|openssl rsa -aes128 -passout pass:$passwd -in $name"RSAkey.pem" -out $name"RSApriv.pem"|
+			\verb|openssl rsa -pubout -in $name"RSAkey.pem" -out $name"RSApub.pem"|
+		\end{small}
+		
+		Como especial mención, podemos pasar una clave como parámetro en un fichero (\textit{file: <archivo>}) o una variable
+		(\textit{pass: \$<variable>}) usando uso de los parámetros \textit{passin} o \textit{passout} dependiendo si la clave
+		va para acceder al fichero de entrada o de salida.
+		
 	\subsection{sessionkey}
 		
 	\subsection{Claves de Curvas Elípticas}
