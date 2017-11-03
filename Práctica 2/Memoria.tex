@@ -236,7 +236,54 @@ Criptosistemas Asimétricos} % Subtitle
 		\textbf{PublicExponent} y, por supuesto, su tamaño.
 		
 	\subsection{Cifrando y descrifrando RSA}
+		En este apartado, haremos uso de otra función de \href{http://manpages.ubuntu.com/manpages/zesty/en/man1/openssl.1ssl.html}
+		{\textit{openssl}}, en particular de \href{https://www.openssl.org/docs/man1.0.2/apps/rsautl.html}{\textit{rsautl}} con
+		los parámetros \textit{encrypt} y \textit{decrypt}.
+	
+		Lo primero que nos viene a la cabeza cuando tenemos un criptosistema es utilizarlo directamente para cifrar nuestro
+		mensaje usando: \\
+		\begin{small}
+			\verb|openssl rsautl -encrypt -pubin -inkey $name"RSApub.pem" -in input.bin -out input_RSA.bin|
+		\end{small}	
+		
+		Y éste es el error que nos encontramos\footnote{He tenido que reducir la letra para poder mostrarlo en una sola línea.}:
+		\lstinputlisting[basicstyle=\tiny]{./Resultados/error.txt}
+		
+		Este error viene a decirnos que nuestro mensaje es demasiado grande para ser cifrado usando la clave RSA que hemos
+		generado. Así que lo que haremos será cifrarlo usando un cifrado por bloques con unos parámetros específicos y serán
+		estos parámetros los que pasaremos cifrados por RSA:
+		
+		\begin{small}
+			\verb|openssl rsautl -encrypt -pubin -inkey $name"RSApub.pem" -in sessionkey -out skey.c|
+			\verb|openssl enc $mode -pass file:sessionkey -in input.bin -out output.bin|
+		\end{small}
+		
+		Análogamente, se actúa para descifrarlo:
+		
+		\begin{small}
+			\verb|openssl rsautl -decrypt -passin <pass> -inkey $name"RSApriv.pem" -in skey.c -out skey.d| \\
+			\verb|dec_mode=`cat skey.d | tail -n 1`| \\
+			\verb|openssl enc -d $dec_mode -pass file:skey.d -in output.bin -out output_d.bin|
+		\end{small}
+		
+		Finalmente, sólo queda comprobar que los archivos efectivamente son idénticos.
+		
+		sessionkey:
+		\lstinputlisting{./Resultados/sessionkey}
+		
+		skey.d:
+		\lstinputlisting{./Resultados/sessionkey.dec}
+		
+		input.txt:
+		\lstinputlisting{./Resultados/input.txt}
+		
+		output\_d.txt:
+		\lstinputlisting{./Resultados/output_dec.txt}
 	
 	\subsection{Valores de las claves de Curvas Elípticas}
-	
+		%\lstinputlisting{filename}
+		%\lstinputlisting{filename}
+		%\lstinputlisting{filename}
+		%\lstinputlisting{filename}
+
 \end{document}
