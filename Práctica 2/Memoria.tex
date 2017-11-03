@@ -275,8 +275,24 @@ Criptosistemas Asimétricos} % Subtitle
 		\lstinputlisting{./Resultados/output_dec.txt}
 	
 	\subsection{Valores de las claves de Curvas Elípticas}
+		El contenido del archivo \textit{<nombre>ECkey.txt} es:
 		\lstinputlisting{./Resultados/MyECkey.txt}
+		
+		Aquí podemos ver que únicamente se almacenan los valores privados y públicos junto al nombre de la curva. También
+		podemos ver su tamaño, en este caso, 192 bits.
+		
+		El contenido del archivo \textit{<nombre>ECpriv.txt} es:
 		\lstinputlisting{./Resultados/MyECpriv.txt}
+		
+		Podemos apreciar que tiene los mismos valores que el anterior, esto es porque realmente no extraemos la clave privada,
+		sólo la hemos cifrado.
+		
+		Finalmente, el contenido del archivo \textit{<nombre>ECpub.txt} es:
+		\lstinputlisting{./Resultados/MyECpub.txt}
+		
+		Aquí nos damos cuenta de que, como era de esperar, el único valor que se transmite al público es \textbf{pub} junto
+		con, obviamente, su tamaño y el nombre de la curva.
+			
 		\lstinputlisting{./Resultados/MyECpub.txt}
 
 \end{document}
