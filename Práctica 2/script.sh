@@ -6,6 +6,7 @@ mkdir -p Claves
 
 # Archivo de 0's
 dd if=/dev/zero of=./Resultados/input.bin bs=128 count=1 2> /dev/null
+xxd ./Resultados/input.bin > ./Resultados/input.txt
 
 key_size="768"
 name=${1:-My}       # Primer parámetro, por defecto "My"
@@ -38,6 +39,7 @@ openssl enc $mode -pass file:./Resultados/$fkey -in ./Resultados/"input.bin" -ou
 openssl rsautl -decrypt -passin pass:$passwd -inkey ./Claves/$name"RSApriv.pem" -in ./Resultados/$fkey".enc" -out ./Resultados/$fkey".dec"
 dec_mode=`cat ./Resultados/$fkey".dec" | tail -n 1`
 openssl enc -d $dec_mode -pass file:./Resultados/$fkey".dec" -in ./Resultados/"output.bin" -out ./Resultados/"output_dec.bin"
+xxd ./Resultados/output_dec.bin > xxd ./Resultados/output_dec.txt
 
 # Generación de clave por curva elíptica
 openssl ecparam -name $curve -out ./Claves/"stdECparam.pem"
