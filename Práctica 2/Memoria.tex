@@ -188,12 +188,6 @@ Criptosistemas Asimétricos} % Subtitle
 
 		Adicionalmente, quizás necesitemos incluir \textit{-pubin} si la entrada es una clave pública o
 		\textit{-passin <password>} si la entrada es una clave encriptada.
-		
-		También es importante destacar que para ver los datos de la curva que estamos usando, tendremos
-		que ejecutar: \\
-		\begin{small}
-			\verb|openssl ecparam -param_enc explicit -in "stdECparam.pem" -out "stdECparam.txt"|
-		\end{small}
 
 \section{Análisis de los resultados}
 	\subsection{Valores de las claves de RSA}
@@ -281,9 +275,8 @@ Criptosistemas Asimétricos} % Subtitle
 		\lstinputlisting{./Resultados/output_dec.txt}
 	
 	\subsection{Valores de las claves de Curvas Elípticas}
-		%\lstinputlisting{filename}
-		%\lstinputlisting{filename}
-		%\lstinputlisting{filename}
-		%\lstinputlisting{filename}
+		\lstinputlisting{./Resultados/MyECkey.txt}
+		\lstinputlisting{./Resultados/MyECpriv.txt}
+		\lstinputlisting{./Resultados/MyECpub.txt}
 
 \end{document}
