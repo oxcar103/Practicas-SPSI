@@ -180,6 +180,19 @@ Criptosistemas Asimétricos} % Subtitle
 		\end{small}
 	
 	\subsection{Archivos de valores}
+		El volcado de los datos en archivos para su posterior análisis se realiza mediante la instrucción: \\
+		\begin{small}
+			\verb|openssl <rsa/ec> -text -noout -in <entrada> -out <salida>|
+		\end{small}
+
+		Adicionalmente, quizás necesitemos incluir \textit{-pubin} si la entrada es una clave pública o
+		\textit{-passin <password>} si la entrada es una clave encriptada.
+		
+		También es importante destacar que para ver los datos de la curva que estamos usando, tendremos
+		que ejecutar: \\
+		\begin{small}
+			\verb|openssl ecparam -param_enc explicit -in "stdECparam.pem" -out "stdECparam.txt"|
+		\end{small}
 
 \section{Análisis de los resultados}
 	\subsection{Valores de las claves de RSA}
