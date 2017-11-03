@@ -1,0 +1,69 @@
+/* [wxMaxima batch file version 1] [ DO NOT EDIT BY HAND! ]*/
+/* [ Created with wxMaxima version 13.04.2 ] */
+
+/* [wxMaxima: input   start ] */
+(ibase:16,obase:10)$
+/* [wxMaxima: input   end   ] */
+
+/* [wxMaxima: input   start ] */
+0081dfb925d679f04e2d6ee8ff40863e166fcd982d1102d8368fcf3444477799d0812711f8502faaf5bc92113aa906bf5a969b03dee5a981a2f08fa37f206791d28fb6c1c379c7d2dedcf7fba83aac1dd718e6cfb39578bb9f58424ac994b12a11;
+/* [wxMaxima: input   end   ] */
+
+/* [wxMaxima: input   start ] */
+d:%;
+/* [wxMaxima: input   end   ] */
+
+/* [wxMaxima: input   start ] */
+00f4f8efe9d1a3336efce4cf175394e55618168ab9aab406f19ea27d1460bb9f1d272c0906b3025490b6a35202a23ed9ab;
+/* [wxMaxima: input   end   ] */
+
+/* [wxMaxima: input   start ] */
+p1:%;
+/* [wxMaxima: input   end   ] */
+
+/* [wxMaxima: input   start ] */
+00f30d17e61d58182ac60bb500b571c4be092ac85ea81f119cae8b80d3678a57ff3db8528f10dd3628bea770124c6c24c3;
+/* [wxMaxima: input   end   ] */
+
+/* [wxMaxima: input   start ] */
+p2:%;
+/* [wxMaxima: input   end   ] */
+
+/* [wxMaxima: input   start ] */
+00A6E03D6E66646A511CED31358EB64B53CEACEC6B762194E95B4B0D31A883A6EC5116EA3F2A0A58590C514D3886159269;
+/* [wxMaxima: input   end   ] */
+
+/* [wxMaxima: input   start ] */
+exp1:%;
+/* [wxMaxima: input   end   ] */
+
+/* [wxMaxima: input   start ] */
+0052022bfb3011866e004ef8eed94a1ee9442c945923feffb14f4fb0d3240f90eb8586c90c8ed32530104c6ccb2fd01983;
+/* [wxMaxima: input   end   ] */
+
+/* [wxMaxima: input   start ] */
+exp2:%;
+/* [wxMaxima: input   end   ] */
+
+/* [wxMaxima: input   start ] */
+00dd047b32d467eeb6974440d2e84f13503d547068e3206834f2637d6797f5bbae0edfa5d43123e7753b702794444effc6;
+/* [wxMaxima: input   end   ] */
+
+/* [wxMaxima: input   start ] */
+coef:%;
+/* [wxMaxima: input   end   ] */
+
+/* [wxMaxima: input   start ] */
+is(mod(d, p1-1) = exp1);
+/* [wxMaxima: input   end   ] */
+
+/* [wxMaxima: input   start ] */
+is(mod(d, p2-1) = exp2);
+/* [wxMaxima: input   end   ] */
+
+/* [wxMaxima: input   start ] */
+is(mod(coef*p2, p1) = 1);
+/* [wxMaxima: input   end   ] */
+
+/* Maxima can't load/batch files which end with a comment! */
+"Created with wxMaxima"$
