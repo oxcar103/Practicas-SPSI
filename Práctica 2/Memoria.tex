@@ -180,7 +180,8 @@ Criptosistemas Asimétricos} % Subtitle
 		\end{small}
 	
 	\subsection{Archivos de valores}
-		El volcado de los datos en archivos para su posterior análisis se realiza mediante la instrucción: \\
+		El volcado de los datos en archivos para su posterior análisis que, por sencillez, se llamarán de igual forma que los
+		archivos originales pero cambiando su extensión por \textit{.txt} se realiza mediante la instrucción: \\
 		\begin{small}
 			\verb|openssl <rsa/ec> -text -noout -in <entrada> -out <salida>|
 		\end{small}
@@ -196,9 +197,46 @@ Criptosistemas Asimétricos} % Subtitle
 
 \section{Análisis de los resultados}
 	\subsection{Valores de las claves de RSA}
-	
+		El contenido del archivo \textit{<nombre>RSAkey.txt} es:
+		\lstinputlisting{./Resultados/MyRSAkey.txt}
+		
+		Aquí podemos ver que se almacenan algunos valores particulares para agilizar su uso en aplicaciones posteriores
+		\footnote{Esta información ha sido sacada de \href{https://en.wikipedia.org/wiki/RSA\_(cryptosystem)\#Using\_the\_Chinese\_remainder\_algorithm}
+		{RSA\_(cryptosystem) - Wikipedia}  con wxMaxima mediante el uso de \textit{is(<x> = <y>)}, \textit{mod(<x>, <y>)},
+		\textit{ibase:<n>}, \textit{obase:<n>}, transformando los valores hexadecimales a decimal y almacenándolos en varibles.}:
+		\begin{itemize}
+			\item \textbf{Prime1}: que es uno de nuestros primos, $p$.
+			\item \textbf{Prime2}: que es el otro de nuestros primos, $q$.
+			\item \textbf{Modulus}: que es el producto de ambos primos, $n = p \cdot q$.
+			\item \textbf{PublicExponent}: el exponente público, $3 \le e \le \varphi(n)$, que nos permite cifrar: $c \equiv_n m^e$.
+			Además, hacer uso de 3, 17 ó $2^{16}+1$ como es nuestro caso, acelera las cuentas del cifrado por el \textbf{Método
+			de los Cuadrados Iterados}.
+			\item \textbf{PrivateExponent}: el inverso del exponente público, $d \equiv_{\varphi(n)} e^{-1}$, que nos
+			permite descifrar: $m \equiv_n (m^e)^{e^{-1}}\equiv_n c^d$.
+			\item \textbf{Exponent1}: exponente simplificado, $d_P =_{p-1} d$, nos permite agilizar las cuentas del descifrado
+			usando el \textbf{Teorema Chino del Resto}.
+			\item \textbf{Exponent2}: exponente simplificado, $d_Q =_{q-1} d$, nos permite agilizar las cuentas del descifrado
+			usando el \textbf{Teorema Chino del Resto}.
+			\item \textbf{Coefficient}: $q_{inv} =_{p} q^{-1}$, nos permite agilizar las cuentas del descifrado usando el
+			\textbf{Teorema Chino del Resto}.
+		\end{itemize}
+		
+		También podemos ver su tamaño, en este caso, 768 bits.
+		
+		El contenido del archivo \textit{<nombre>RSApriv.txt} es:
+		\lstinputlisting{./Resultados/MyRSApriv.txt}
+		
+		Podemos apreciar que tiene los mismos valores que el anterior, esto es porque realmente no extraemos la clave privada,
+		sólo la hemos cifrado.
+		
+		Finalmente, el contenido del archivo \textit{<nombre>RSApub.txt} es:
+		\lstinputlisting{./Resultados/MyRSApub.txt}
+		
+		Aquí nos damos cuenta de que, como era de esperar, los únicos valores que se transmiten al público son \textbf{Modulus},
+		\textbf{PublicExponent} y, por supuesto, su tamaño.
+		
 	\subsection{Cifrando y descrifrando RSA}
 	
 	\subsection{Valores de las claves de Curvas Elípticas}
-
+	
 \end{document}

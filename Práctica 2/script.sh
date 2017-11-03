@@ -50,4 +50,3 @@ openssl ecparam -param_enc explicit -in ./Claves/"stdECparam.pem" -out ./Resulta
 openssl ec -text -noout -in ./Claves/$name"ECkey.pem" -out ./Resultados/$name"ECkey.txt"
 openssl ec -text -noout -passin pass:$passwd -in ./Claves/$name"ECpriv.pem" -out ./Resultados/$name"ECpriv.txt"
 openssl ec -text -noout -pubin -in ./Claves/$name"ECpub.pem" -out ./Resultados/$name"ECpub.txt"
-
