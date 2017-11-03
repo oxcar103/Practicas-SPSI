@@ -133,6 +133,15 @@ Criptosistemas Asimétricos} % Subtitle
 		va para acceder al fichero de entrada o de salida.
 		
 	\subsection{sessionkey}
+	    Este archivo, lo crearemos usando el comando \href{https://www.openssl.org/docs/man1.0.2/apps/rand.html}{\textit{rand}} de \href{http://manpages.ubuntu.com/manpages/zesty/en/man1/openssl.1ssl.html}{\textit{openssl}} para generar los caracteres
+	    hexadecimales que necesitemos usando \textit{hex}. En mi caso, voy a usar \textit{aes-256-cbc}, así que necesitaré 32
+	    caracteres hexadecimales para la clave. Además, también hay que añadir el modo de cifrado después. En resumen, el archivo
+	    se generaría así:
+		
+		\begin{small}
+			\verb|openssl rand 32 -hex -out sessionkey| \\
+			\verb|echo $mode >> sessionkey|
+		\end{small}
 		
 	\subsection{Claves de Curvas Elípticas}
 	
