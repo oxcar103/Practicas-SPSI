@@ -262,7 +262,7 @@ Criptosistemas Asimétricos} % Subtitle
 		
 		\begin{small}
 			\verb|openssl rsautl -decrypt -passin <pass> -inkey $name"RSApriv.pem" -in skey.c -out skey.d| \\
-			\verb|dec_mode=`cat skey.d | tail -n 1`| \\
+			\verb!dec_mode=`cat skey.d | tail -n 1`! \\
 			\verb|openssl enc -d $dec_mode -pass file:skey.d -in output.bin -out output_d.bin|
 		\end{small}
 		
