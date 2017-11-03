@@ -65,6 +65,9 @@
 % Hipervínculos
 \usepackage[hidelinks]{hyperref}
 
+%% Para incluir archivos en texto plano
+\usepackage{listings}
+
 %----------------------------------------------------------------------------------------
 %	TÍTULO
 %----------------------------------------------------------------------------------------
@@ -144,6 +147,37 @@ Criptosistemas Asimétricos} % Subtitle
 		\end{small}
 		
 	\subsection{Claves de Curvas Elípticas}
+		Lo primero que debemos hacer es encontrar la curva que queremos usar. Para ello, me parece muy útil ejecutar un
+		bucle que recorra todas las curvas de las que dispone nuestro programa y nos muestre sus valores. Para conocer
+		de qué curvas dispone, haremos uso de \href{https://www.openssl.org/docs/man1.0.2/apps/ecparam.html}
+		{\textit{ecparam}} junto con el flag \textit{-list\_curves} para listar, y con \textit{-name} y \textit{-param\_enc}
+		para mostrar los valores. En particular, sabiendo que nuestras curvas se llamaban \textbf{P-192} y \textbf{B-163},
+		sólo recorreremos las curvas con dicho número en el nombre o descripción:
+		\begin{verbatim}
+		for i in $(openssl ecparam -list_curves | grep '163\|192' | cut -d ":" -f 1);
+			do
+				echo -e "------------------------------------------------------------------\n$i:";
+				openssl ecparam -name $i -param_enc explicit -text -noout;
+			done
+		\end{verbatim}
+		
+		Tras mostrar esta lista, miraremos nosotros mismos qué curva tiene los parámetros vistos en clase, es decir,
+		miramos el primo, el valor de b y el orden. Tras hacer esto, concluimos que \textbf{P-192} se llama
+		\textbf{prime192v1} mientras que la curva \textbf{B-163} se llama \textbf{sect163r2}. En mi caso, me quedaré
+		con \textbf{P-192}.
+		
+		Una vez conocido el nombre, basta con almacenarla en un archivo y generar la clave:		
+		\begin{small}
+			\verb|openssl ecparam -name $curve -out "stdECparam.pem"| \\
+			\verb|openssl ecparam -in "stdECparam.pem" -genkey -out $name"ECkey.pem"|
+		\end{small}
+		
+		Y, análogamente a como hicimos con las claves RSA, usaremos \href{https://www.openssl.org/docs/man1.0.2/apps/ec.html}
+		{\textit{ec}} para trabajar con la clave: \\
+		\begin{small}
+			\verb|openssl ec -des3 -passout pass:$passwd -in $name"ECkey.pem" -out $name"ECpriv.pem"| \\
+			\verb|openssl ec -pubout -in $name"ECkey.pem" -out $name"ECpub.pem"|
+		\end{small}
 	
 	\subsection{Archivos de valores}
 
