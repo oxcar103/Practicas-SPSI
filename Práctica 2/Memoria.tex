@@ -126,8 +126,8 @@ Criptosistemas Asimétricos} % Subtitle
 		generar una clave del tamaño que queramos, y con \href{https://www.openssl.org/docs/man1.0.2/apps/rsa.html}{\textit{rsa}}
 		para trabajar con ella, por ejemplo, para cifrarla o para extraer la clave pública de la privada:
 		\begin{small}
-			\verb|openssl genrsa -out $name"RSAkey.pem" $key_size| \\
-			\verb|openssl rsa -aes128 -passout pass:$passwd -in $name"RSAkey.pem" -out $name"RSApriv.pem"|
+			\verb|openssl genrsa -out $name"RSAkey.pem" <key_size>| \\
+			\verb|openssl rsa -aes128 -passout <pass> -in $name"RSAkey.pem" -out $name"RSApriv.pem"|
 			\verb|openssl rsa -pubout -in $name"RSAkey.pem" -out $name"RSApub.pem"|
 		\end{small}
 		
@@ -143,7 +143,7 @@ Criptosistemas Asimétricos} % Subtitle
 		
 		\begin{small}
 			\verb|openssl rand 32 -hex -out sessionkey| \\
-			\verb|echo $mode >> sessionkey|
+			\verb|echo "-aes-256-cbc" >> sessionkey|
 		\end{small}
 		
 	\subsection{Claves de Curvas Elípticas}
@@ -156,7 +156,8 @@ Criptosistemas Asimétricos} % Subtitle
 		\begin{verbatim}
 		for i in $(openssl ecparam -list_curves | grep '163\|192' | cut -d ":" -f 1);
 			do
-				echo -e "------------------------------------------------------------------\n$i:";
+				echo "------------------------------------------------------------------";
+				echo "$i:";
 				openssl ecparam -name $i -param_enc explicit -text -noout;
 			done
 		\end{verbatim}
@@ -166,7 +167,7 @@ Criptosistemas Asimétricos} % Subtitle
 		\textbf{prime192v1} mientras que la curva \textbf{B-163} se llama \textbf{sect163r2}. En mi caso, me quedaré
 		con \textbf{P-192}.
 		
-		Una vez conocido el nombre, basta con almacenarla en un archivo y generar la clave:		
+		Una vez conocido el nombre, basta con almacenarla en un archivo y generar la clave: \\		
 		\begin{small}
 			\verb|openssl ecparam -name $curve -out "stdECparam.pem"| \\
 			\verb|openssl ecparam -in "stdECparam.pem" -genkey -out $name"ECkey.pem"|
@@ -175,7 +176,7 @@ Criptosistemas Asimétricos} % Subtitle
 		Y, análogamente a como hicimos con las claves RSA, usaremos \href{https://www.openssl.org/docs/man1.0.2/apps/ec.html}
 		{\textit{ec}} para trabajar con la clave: \\
 		\begin{small}
-			\verb|openssl ec -des3 -passout pass:$passwd -in $name"ECkey.pem" -out $name"ECpriv.pem"| \\
+			\verb|openssl ec -des3 -passout <pass> -in $name"ECkey.pem" -out $name"ECpriv.pem"| \\
 			\verb|openssl ec -pubout -in $name"ECkey.pem" -out $name"ECpub.pem"|
 		\end{small}
 	
@@ -187,7 +188,7 @@ Criptosistemas Asimétricos} % Subtitle
 		\end{small}
 
 		Adicionalmente, quizás necesitemos incluir \textit{-pubin} si la entrada es una clave pública o
-		\textit{-passin <password>} si la entrada es una clave encriptada.
+		\textit{-passin <pass>} si la entrada está cifrada.
 
 \section{Análisis de los resultados}
 	\subsection{Valores de las claves de RSA}
@@ -196,8 +197,9 @@ Criptosistemas Asimétricos} % Subtitle
 		
 		Aquí podemos ver que se almacenan algunos valores particulares para agilizar su uso en aplicaciones posteriores
 		\footnote{Esta información ha sido sacada de \href{https://en.wikipedia.org/wiki/RSA\_(cryptosystem)\#Using\_the\_Chinese\_remainder\_algorithm}
-		{RSA\_(cryptosystem) - Wikipedia}  con wxMaxima mediante el uso de \textit{is(<x> = <y>)}, \textit{mod(<x>, <y>)},
-		\textit{ibase:<n>}, \textit{obase:<n>}, transformando los valores hexadecimales a decimal y almacenándolos en varibles.}:
+		{RSA\_(cryptosystem) - Wikipedia} y verificada con wxMaxima en el archivo PruebaRSA.wxm mediante el uso de
+		\textit{is(<x> = <y>)}, \textit{mod(<x>, <y>)}, \textit{ibase:<n>}, \textit{obase:<n>}, transformando los valores
+		hexadecimales a decimal y almacenándolos en variables.}:
 		\begin{itemize}
 			\item \textbf{Prime1}: que es uno de nuestros primos, $p$.
 			\item \textbf{Prime2}: que es el otro de nuestros primos, $q$.
@@ -244,8 +246,8 @@ Criptosistemas Asimétricos} % Subtitle
 		\lstinputlisting[basicstyle=\tiny]{./Resultados/error.txt}
 		
 		Este error viene a decirnos que nuestro mensaje es demasiado grande para ser cifrado usando la clave RSA que hemos
-		generado. Así que lo que haremos será cifrarlo usando un cifrado por bloques con unos parámetros específicos y serán
-		estos parámetros los que pasaremos cifrados por RSA:
+		generado. Así que lo que haremos será cifrarlo usando un cifrado por bloques con los parámetros específicos que hemos
+		almacenado en \textit{sessionkey} y será este archivo el que pasaremos cifrado por RSA:
 		
 		\begin{small}
 			\verb|openssl rsautl -encrypt -pubin -inkey $name"RSApub.pem" -in sessionkey -out skey.c|
@@ -292,7 +294,5 @@ Criptosistemas Asimétricos} % Subtitle
 		
 		Aquí nos damos cuenta de que, como era de esperar, el único valor que se transmite al público es \textbf{pub} junto
 		con, obviamente, su tamaño y el nombre de la curva.
-			
-		\lstinputlisting{./Resultados/MyECpub.txt}
 
 \end{document}
