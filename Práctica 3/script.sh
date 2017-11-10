@@ -14,6 +14,16 @@ passwd="0123456789"
 curve="prime192v1"
 mode="-aes-128-cfb8"
 
+# Generación de clave DSA
+openssl dsaparam -out ./Claves/"sharedDSA.pem"
+
+for i in $name $surname
+    do
+        openssl gendsa -out ./Claves/$i"DSAkey.pem" ./Claves/"sharedDSA.pem"
+        openssl dsa -aes128 -passout pass:$passwd -in ./Claves/$i"DSAkey.pem" -out ./Claves/$i"DSApriv.pem"
+        openssl dsa -pubout -in ./Claves/$i"DSAkey.pem" -out ./Claves/$i"DSApub.pem"
+    done
+
 # Generación de clave por curva elíptica
 openssl ecparam -name $curve -out ./Claves/"stdECparam.pem"
 
