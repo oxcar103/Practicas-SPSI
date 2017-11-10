@@ -35,6 +35,12 @@ for i in $name $surname
         openssl dsa -text -noout -pubin -in ./Claves/$i"DSApub.pem" -out ./Resultados/$i"DSApub.txt"
     done
 
+# Generación de valores Hash
+openssl dgst -sha384 -c -out ./Resultados/$name"DSApub.sha384" ./Claves/$name"DSApub.pem"
+openssl dgst -ripemd160 -c -out ./Resultados/$surname"DSApub.ripemd160" ./Claves/$surname"DSApub.pem"
+openssl dgst -hmac "12345" -c -out ./Resultados/"sharedDSA.hmac" ./Claves/"sharedDSA.pem"
+
+
 # Generación de clave por curva elíptica
 openssl ecparam -name $curve -out ./Claves/"stdECparam.pem"
 
