@@ -24,6 +24,16 @@ for i in $name $surname
         openssl dsa -pubout -in ./Claves/$i"DSAkey.pem" -out ./Claves/$i"DSApub.pem"
     done
 
+# Creando archivos para mostrar los valores
+openssl dsaparam -text -noout -in ./Claves/"sharedDSA.pem" -out ./Resultados/"sharedDSA.txt"
+
+for i in $name $surname
+    do
+        openssl dsa -text -noout -in ./Claves/$i"DSAkey.pem" -out ./Resultados/$i"DSAkey.txt"
+        openssl dsa -text -noout -passin pass:$passwd -in ./Claves/$i"DSApriv.pem" -out ./Resultados/$i"DSApriv.txt"
+        openssl dsa -text -noout -pubin -in ./Claves/$i"DSApub.pem" -out ./Resultados/$i"DSApub.txt"
+    done
+
 # Generación de clave por curva elíptica
 openssl ecparam -name $curve -out ./Claves/"stdECparam.pem"
 
