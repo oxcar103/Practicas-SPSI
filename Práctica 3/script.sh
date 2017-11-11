@@ -1,8 +1,7 @@
 #! /bin/bash
 
 # Directorios que contendrán los archivos
-mkdir -p Resultados
-mkdir -p Claves
+mkdir -p Resultados Claves
 
 size=103
 name=${1:-My}           # Primer parámetro, por defecto "My"
@@ -48,14 +47,15 @@ for i in $name $surname
         openssl ec -pubout -in ./Claves/$i"ECkey.pem" -out ./Claves/$i"ECpub.pem"
     done
 
+# Generación de archivos temporales
 msg="message.txt"
 pubA="publicA.pem"
 pubB="publicB.pem"
 sgn="signature.txt"
+
 # Alice
     # Pasa su clave: c = g^a
     cat ./Claves/$name"ECpub.pem" > $msg
-
 # Bob
     # Lee la clave de Alice: c
     cat $msg > $pubA
@@ -67,7 +67,6 @@ sgn="signature.txt"
     openssl enc $mode -pass file:$key -in ./Resultados/"sgnB.bin" -out ./Resultados/"sgnB_enc.bin"
     # Pasa su clave y la firma cifrada: (d || e_k(s))
     cat ./Claves/$surname"ECpub.pem" ./Resultados/"sgnB_enc.bin" > $msg
-
 # Alice
     # Lee la clave de Bob: d = g^b
     cat $msg | head -n -1 > $pubB
@@ -85,7 +84,6 @@ sgn="signature.txt"
     openssl enc $mode -pass file:$key -in ./Resultados/"sgnA.bin" -out ./Resultados/"sgnA_enc.bin"
     # Pasa su clave y la firma cifrada: (d || e_k(s))
     cat ./Resultados/"sgnA_enc.bin" > $msg
-
 # Bob
     # Lee la firma cifrada de Alice
     cat $msg > $sgn
@@ -96,4 +94,10 @@ sgn="signature.txt"
 
 # Borra archivos temporales de los mensajes entre Alice y Bob
 rm $msg $pubA $pubB $sgn
+
+# Creando archivos para ver los valores
+for i in `ls ./Claves/sgn*.bin`
+    do
+        xxd ./Claves/$i > ./Resultados/$i
+    done
 
