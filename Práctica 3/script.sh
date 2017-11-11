@@ -96,8 +96,8 @@ sgn="signature.txt"
 rm $msg $pubA $pubB $sgn
 
 # Creando archivos para ver los valores
-for i in `ls ./Claves/sgn*.bin`
+for i in $(ls ./Resultados/sgn*.bin | cut -f 2 -d ".")
     do
-        xxd ./Claves/$i > ./Resultados/$i
+        xxd ./$i".bin" > ./$i".txt"
     done
 
