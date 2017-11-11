@@ -6,7 +6,7 @@ mkdir -p Claves
 
 size=103
 name=${1:-My}           # Primer parámetro, por defecto "My"
-surname=${2:-Other}     # Primer parámetro, por defecto "Other"
+surname=${2:-Other}     # Segundo parámetro, por defecto "Other"
 passwd="0123456789"
 curve="prime192v1"
 mode="-aes-128-cfb8"
