@@ -4,10 +4,6 @@
 mkdir -p Resultados
 mkdir -p Claves
 
-# Archivo de 0's
-dd if=/dev/zero of=./Resultados/input.bin bs=128 count=1 2> /dev/null
-xxd ./Resultados/input.bin > ./Resultados/input.txt
-
 size=103
 name=${1:-My}           # Primer parámetro, por defecto "My"
 surname=${2:-Other}     # Primer parámetro, por defecto "Other"
