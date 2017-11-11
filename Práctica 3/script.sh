@@ -14,6 +14,7 @@ surname=${2:-Other}     # Primer parámetro, por defecto "Other"
 passwd="0123456789"
 curve="prime192v1"
 mode="-aes-128-cfb8"
+key="./Claves/key.bin"
 
 # Generación de clave DSA
 openssl dsaparam -out ./Claves/"sharedDSA.pem" $size
@@ -40,7 +41,7 @@ openssl dgst -sha384 -c -out ./Resultados/$name"DSApub.sha384" ./Claves/$name"DS
 openssl dgst -ripemd160 -c -out ./Resultados/$surname"DSApub.ripemd160" ./Claves/$surname"DSApub.pem"
 openssl dgst -hmac "12345" -c -out ./Resultados/"sharedDSA.hmac" ./Claves/"sharedDSA.pem"
 
-
+# Simulación del protocolo Estación a Estación
 # Generación de clave por curva elíptica
 openssl ecparam -name $curve -out ./Claves/"stdECparam.pem"
 
@@ -50,3 +51,36 @@ for i in $name $surname
         openssl ec -des3 -passout pass:$passwd -in ./Claves/$i"ECkey.pem" -out ./Claves/$i"ECpriv.pem"
         openssl ec -pubout -in ./Claves/$i"ECkey.pem" -out ./Claves/$i"ECpub.pem"
     done
+
+msg="message.txt"
+pubA="pubA.pem"
+pubB="pubB.pem"
+tmp="tmp.txt"
+# Alice
+cat ./Claves/$name"ECpub.pem" > $msg
+
+# Bob
+cat $msg > $pubA
+openssl pkeyutl -derive -passin pass:$passwd -inkey ./Claves/$surname"ECpriv.pem" -peerkey $pubA -out $key
+openssl dgst -sha256 -passin pass:$passwd -sign ./Claves/$surname"DSApriv.pem" -out ./Resultados/"sgnB.bin" <(cat $pubA ./Claves/$surname"ECpub.pem")
+openssl enc $mode -pass file:$key -in ./Resultados/"sgnB.bin" -out ./Resultados/"sgnB_enc.bin"
+cat ./Claves/$surname"ECpub.pem" ./Resultados/"sgnB_enc.bin" > $msg
+
+# Alice
+cat $msg | head -n -1 > $pubB
+cat $msg | tail -n 1 > $tmp
+openssl pkeyutl -derive -passin pass:$passwd -inkey ./Claves/$name"ECpriv.pem" -peerkey $pubB -out $key
+openssl enc -d $mode -pass file:$key -in $tmp -out ./Resultados/"sgnB_dec.bin"
+openssl dgst -sha256 -verify ./Claves/$surname"DSApub.pem" -signature ./Resultados/"sgnB_dec.bin" <(cat ./Claves/$name"ECpub.pem" $pubB)
+openssl dgst -sha256 -passin pass:$passwd -sign ./Claves/$name"DSApriv.pem" -out ./Resultados/"sgnA.bin" <(cat $pubB ./Claves/$name"ECpub.pem")
+openssl enc $mode -pass file:$key -in ./Resultados/"sgnA.bin" -out ./Resultados/"sgnA_enc.bin"
+cat ./Resultados/"sgnA_enc.bin" > $msg
+
+# Bob
+cat $msg > $tmp
+openssl enc -d $mode -pass file:$key -in $tmp -out ./Resultados/"sgnA_dec.bin"
+openssl dgst -sha256 -verify ./Claves/$name"DSApub.pem" -signature ./Resultados/"sgnA_dec.bin" <(cat ./Claves/$surname"ECpub.pem" $pubA)
+
+# Borra archivos temporales de los mensajes entre Alice y Bob
+rm $msg $pubA $pubB $tmp
+
