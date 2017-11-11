@@ -69,9 +69,9 @@ sgn="signature.txt"
     cat ./Claves/$surname"ECpub.pem" ./Resultados/"sgnB_enc.bin" > $msg
 # Alice
     # Lee la clave de Bob: d = g^b
-    cat $msg | head -n -1 > $pubB
+    cat $msg | head -n 4 > $pubB
     # Lee la firma cifrada de Bob
-    cat $msg | tail -n 1 > $sgn
+    cat $msg | tail -n +5 > $sgn
     # Calcula la clave compartida: k = d^a = g^(ab)
     openssl pkeyutl -derive -passin pass:$passwd -inkey ./Claves/$name"ECpriv.pem" -peerkey $pubB -out $key
     # Descifra la firma: d_k(e_k(s))
