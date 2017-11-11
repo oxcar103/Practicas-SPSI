@@ -53,34 +53,51 @@ for i in $name $surname
     done
 
 msg="message.txt"
-pubA="pubA.pem"
-pubB="pubB.pem"
-tmp="tmp.txt"
+pubA="publicA.pem"
+pubB="publicB.pem"
+sgn="signature.txt"
 # Alice
-cat ./Claves/$name"ECpub.pem" > $msg
+    # Pasa su clave: c = g^a
+    cat ./Claves/$name"ECpub.pem" > $msg
 
 # Bob
-cat $msg > $pubA
-openssl pkeyutl -derive -passin pass:$passwd -inkey ./Claves/$surname"ECpriv.pem" -peerkey $pubA -out $key
-openssl dgst -sha256 -passin pass:$passwd -sign ./Claves/$surname"DSApriv.pem" -out ./Resultados/"sgnB.bin" <(cat $pubA ./Claves/$surname"ECpub.pem")
-openssl enc $mode -pass file:$key -in ./Resultados/"sgnB.bin" -out ./Resultados/"sgnB_enc.bin"
-cat ./Claves/$surname"ECpub.pem" ./Resultados/"sgnB_enc.bin" > $msg
+    # Lee la clave de Alice: c
+    cat $msg > $pubA
+    # Calcula la clave compartida: k = c^b = g^(ab)
+    openssl pkeyutl -derive -passin pass:$passwd -inkey ./Claves/$surname"ECpriv.pem" -peerkey $pubA -out $key
+    # Firma (c || d): s = sgn_B (c || d)
+    openssl dgst -sha256 -passin pass:$passwd -sign ./Claves/$surname"DSApriv.pem" -out ./Resultados/"sgnB.bin" <(cat $pubA ./Claves/$surname"ECpub.pem")
+    # Cifra la firma: e_k(s)
+    openssl enc $mode -pass file:$key -in ./Resultados/"sgnB.bin" -out ./Resultados/"sgnB_enc.bin"
+    # Pasa su clave y la firma cifrada: (d || e_k(s))
+    cat ./Claves/$surname"ECpub.pem" ./Resultados/"sgnB_enc.bin" > $msg
 
 # Alice
-cat $msg | head -n -1 > $pubB
-cat $msg | tail -n 1 > $tmp
-openssl pkeyutl -derive -passin pass:$passwd -inkey ./Claves/$name"ECpriv.pem" -peerkey $pubB -out $key
-openssl enc -d $mode -pass file:$key -in $tmp -out ./Resultados/"sgnB_dec.bin"
-openssl dgst -sha256 -verify ./Claves/$surname"DSApub.pem" -signature ./Resultados/"sgnB_dec.bin" <(cat ./Claves/$name"ECpub.pem" $pubB)
-openssl dgst -sha256 -passin pass:$passwd -sign ./Claves/$name"DSApriv.pem" -out ./Resultados/"sgnA.bin" <(cat $pubB ./Claves/$name"ECpub.pem")
-openssl enc $mode -pass file:$key -in ./Resultados/"sgnA.bin" -out ./Resultados/"sgnA_enc.bin"
-cat ./Resultados/"sgnA_enc.bin" > $msg
+    # Lee la clave de Bob: d = g^b
+    cat $msg | head -n -1 > $pubB
+    # Lee la firma cifrada de Bob
+    cat $msg | tail -n 1 > $sgn
+    # Calcula la clave compartida: k = d^a = g^(ab)
+    openssl pkeyutl -derive -passin pass:$passwd -inkey ./Claves/$name"ECpriv.pem" -peerkey $pubB -out $key
+    # Descifra la firma: d_k(e_k(s))
+    openssl enc -d $mode -pass file:$key -in $sgn -out ./Resultados/"sgnB_dec.bin"
+    # Verifica que el mensaje lo ha firmado Bob
+    openssl dgst -sha256 -verify ./Claves/$surname"DSApub.pem" -signature ./Resultados/"sgnB_dec.bin" <(cat ./Claves/$name"ECpub.pem" $pubB)
+    # Firma (d || c): t = sgn_A (d || c)
+    openssl dgst -sha256 -passin pass:$passwd -sign ./Claves/$name"DSApriv.pem" -out ./Resultados/"sgnA.bin" <(cat $pubB ./Claves/$name"ECpub.pem")
+    # Cifra la firma: e_k(s)
+    openssl enc $mode -pass file:$key -in ./Resultados/"sgnA.bin" -out ./Resultados/"sgnA_enc.bin"
+    # Pasa su clave y la firma cifrada: (d || e_k(s))
+    cat ./Resultados/"sgnA_enc.bin" > $msg
 
 # Bob
-cat $msg > $tmp
-openssl enc -d $mode -pass file:$key -in $tmp -out ./Resultados/"sgnA_dec.bin"
-openssl dgst -sha256 -verify ./Claves/$name"DSApub.pem" -signature ./Resultados/"sgnA_dec.bin" <(cat ./Claves/$surname"ECpub.pem" $pubA)
+    # Lee la firma cifrada de Alice
+    cat $msg > $sgn
+    # Descifra la firma: d_k(e_k(t))
+    openssl enc -d $mode -pass file:$key -in $sgn -out ./Resultados/"sgnA_dec.bin"
+    # Verifica que el mensaje lo ha firmado Alice
+    openssl dgst -sha256 -verify ./Claves/$name"DSApub.pem" -signature ./Resultados/"sgnA_dec.bin" <(cat ./Claves/$surname"ECpub.pem" $pubA)
 
 # Borra archivos temporales de los mensajes entre Alice y Bob
-rm $msg $pubA $pubB $tmp
+rm $msg $pubA $pubB $sgn
 
