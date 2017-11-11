@@ -13,7 +13,6 @@ key="./Claves/key.bin"
 
 # Generación de clave DSA
 openssl dsaparam -out ./Claves/"sharedDSA.pem" $size
-
 for i in $name $surname
     do
         openssl gendsa -out ./Claves/$i"DSAkey.pem" ./Claves/"sharedDSA.pem"
@@ -23,7 +22,6 @@ for i in $name $surname
 
 # Creando archivos para mostrar los valores
 openssl dsaparam -text -noout -in ./Claves/"sharedDSA.pem" -out ./Resultados/"sharedDSA.txt"
-
 for i in $name $surname
     do
         openssl dsa -text -noout -in ./Claves/$i"DSAkey.pem" -out ./Resultados/$i"DSAkey.txt"
@@ -39,7 +37,6 @@ openssl dgst -hmac "12345" -c -out ./Resultados/"sharedDSA.hmac" ./Claves/"share
 # Simulación del protocolo Estación a Estación
 # Generación de clave por curva elíptica
 openssl ecparam -name $curve -out ./Claves/"stdECparam.pem"
-
 for i in $name $surname
     do
         openssl ecparam -in ./Claves/"stdECparam.pem" -genkey -out ./Claves/$i"ECkey.pem"
@@ -65,13 +62,16 @@ sgn="signature.txt"
     openssl dgst -sha256 -passin pass:$passwd -sign ./Claves/$surname"DSApriv.pem" -out ./Resultados/"sgnB.bin" <(cat $pubA ./Claves/$surname"ECpub.pem")
     # Cifra la firma: e_k(s)
     openssl enc $mode -pass file:$key -in ./Resultados/"sgnB.bin" -out ./Resultados/"sgnB_enc.bin"
-    # Pasa su clave y la firma cifrada: (d || e_k(s))
-    cat ./Claves/$surname"ECpub.pem" ./Resultados/"sgnB_enc.bin" > $msg
+    # Pasa la longitud de su clave, su clave y la firma cifrada: (d || e_k(s))
+    wc -l ./Claves/$surname"ECpub.pem" | cut -f 1 -d " " > $msg
+    cat ./Claves/$surname"ECpub.pem" ./Resultados/"sgnB_enc.bin" >> $msg
 # Alice
+    # Leemos la longitud
+    num=`cat $msg | head -n 1`
     # Lee la clave de Bob: d = g^b
-    cat $msg | head -n 4 > $pubB
+    cat $msg | tail -n +2 | head -n $num > $pubB
     # Lee la firma cifrada de Bob
-    cat $msg | tail -n +5 > $sgn
+    cat $msg | tail -n +$(($num+2)) > $sgn
     # Calcula la clave compartida: k = d^a = g^(ab)
     openssl pkeyutl -derive -passin pass:$passwd -inkey ./Claves/$name"ECpriv.pem" -peerkey $pubB -out $key
     # Descifra la firma: d_k(e_k(s))
