@@ -62,15 +62,15 @@ sgn="signature.txt"
     openssl dgst -sha256 -passin pass:$passwd -sign ./Claves/$surname"DSApriv.pem" -out ./Resultados/"sgnB.bin" <(cat $pubA ./Claves/$surname"ECpub.pem")
     # Cifra la firma: e_k(s)
     openssl enc $mode -pass file:$key -in ./Resultados/"sgnB.bin" -out ./Resultados/"sgnB_enc.bin"
-    # Pasa la longitud de su clave, su clave y la firma cifrada: (d || e_k(s))
+    # Pasa la longitud de su clave, su clave y la firma cifrada: ( #d || d || e_k(s))
     wc -l ./Claves/$surname"ECpub.pem" | cut -f 1 -d " " > $msg
     cat ./Claves/$surname"ECpub.pem" ./Resultados/"sgnB_enc.bin" >> $msg
 # Alice
-    # Leemos la longitud
+    # Leemos la longitud #d
     num=`cat $msg | head -n 1`
     # Lee la clave de Bob: d = g^b
     cat $msg | tail -n +2 | head -n $num > $pubB
-    # Lee la firma cifrada de Bob
+    # Lee la firma cifrada de Bob: e_k(s)
     cat $msg | tail -n +$(($num+2)) > $sgn
     # Calcula la clave compartida: k = d^a = g^(ab)
     openssl pkeyutl -derive -passin pass:$passwd -inkey ./Claves/$name"ECpriv.pem" -peerkey $pubB -out $key
@@ -80,12 +80,12 @@ sgn="signature.txt"
     openssl dgst -sha256 -verify ./Claves/$surname"DSApub.pem" -signature ./Resultados/"sgnB_dec.bin" <(cat ./Claves/$name"ECpub.pem" $pubB)
     # Firma (d || c): t = sgn_A (d || c)
     openssl dgst -sha256 -passin pass:$passwd -sign ./Claves/$name"DSApriv.pem" -out ./Resultados/"sgnA.bin" <(cat $pubB ./Claves/$name"ECpub.pem")
-    # Cifra la firma: e_k(s)
+    # Cifra la firma: e_k(t)
     openssl enc $mode -pass file:$key -in ./Resultados/"sgnA.bin" -out ./Resultados/"sgnA_enc.bin"
-    # Pasa su clave y la firma cifrada: (d || e_k(s))
+    # Pasa su clave y la firma cifrada: (d || e_k(t))
     cat ./Resultados/"sgnA_enc.bin" > $msg
 # Bob
-    # Lee la firma cifrada de Alice
+    # Lee la firma cifrada de Alice: e_k(t)
     cat $msg > $sgn
     # Descifra la firma: d_k(e_k(t))
     openssl enc -d $mode -pass file:$key -in $sgn -out ./Resultados/"sgnA_dec.bin"
