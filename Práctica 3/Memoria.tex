@@ -116,7 +116,30 @@ Protocolos Criptográficos} % Subtitle
 %% Inicio del documento
 
 \section{Creación de los archivos}
-	
+	\subsection{Claves DSA}
+		Para generar las claves DSA, primero necesitaremos crear los parámetros comunes de las mismas. Para ello, nos basta
+		con usar \href{http://manpages.ubuntu.com/manpages/zesty/en/man1/openssl.1ssl.html}{\textit{openssl}} con la opción
+		\href{https://www.openssl.org/docs/man1.0.2/apps/dsaparam.html}{\textit{dsaparam}} indicándole el tamaño en bits del
+		primo $p$ que queramos:
+		\begin{small}
+			\verb|openssl dsaparam -out "sharedDSA.pem" <prime_size>|
+		\end{small}
+
+		Una vez tenemos estos parámetros, operamos análogamente a como hicimos para generar las claves RSA, con
+		\href{https://www.openssl.org/docs/man1.0.2/apps/gendsa.html}{\textit{gendsa}} generamos la clave a partir de los
+		parámetros y usamos \href{https://www.openssl.org/docs/man1.0.2/apps/dsa.html}{\textit{dsa}} para trabajar con ella,
+		por ejemplo, para cifrarla o para extraer la clave pública de la privada. La principal diferencia es que tenemos que
+		generar 2 claves:
+
+		\begin{small}
+			\verb|for i in $name $surname| \\
+			\verb|    do| \\
+			\verb|        openssl gendsa -out $i"DSAkey.pem" sharedDSA.pem| \\
+			\verb|        openssl dsa -aes128 -passout <pass> -in $i"DSAkey.pem" -out $i"DSApriv.pem"| \\
+			\verb|        openssl dsa -pubout -in $i"DSAkey.pem" -out $i"DSApub.pem"| \\
+			\verb|    done| \\
+		\end{small}
+    	
 \section{Análisis de los resultados}
 	
 \end{document}
