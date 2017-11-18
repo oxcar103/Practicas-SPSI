@@ -228,7 +228,21 @@ Protocolos Criptográficos} % Subtitle
 				\verb|openssl enc (¿-d?) <mode> -pass <clave derivada> -in <entrada> -out <salida>|
 			\end{small}
 		
+		\subsubsection{Firmar y Verificar}		
+			Finalmente, procederemos a explicar el método de firma y verificación.
+			
+			Para este método, openssl trae la funcionalidad de \href{https://www.openssl.org/docs/man1.0.2/apps/dgst.html}
+			{\textit{dgst}}. En particular, el método de firma y verificación son relativamente similares:
 
+			\begin{small}
+				\verb|openssl dgst <modo> -passin <pass> -sign <clave privada> -out <firma> <original>|
+				\verb|openssl dgst <modo> -verify <clave pública> -signature <firma> <original>|
+			\end{small}
+			
+			La principal diferencia está en que al firmar, utilizamos nuestra propia clave privada (\textit{-sign}) pero
+			al verificar utilizamos la clave pública del emisor (\textit{-verify}). También cabe destacar que la función hash
+			escogida ha sido \textit{-sha256}.
+			
 \section{Análisis de los resultados}
 	
 \end{document}
