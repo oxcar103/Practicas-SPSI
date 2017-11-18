@@ -202,6 +202,18 @@ Protocolos Criptográficos} % Subtitle
 		
 		Donde podemos ver 3 componentes principales del algoritmo: clave derivada, cifrado/descrifrado y firma/verificación.
 		
+		\subsubsection{Claves derivadas}
+			Para la generación de esta clave, tendremos que tomar la clave pública que nos han pasado y combinarla con nuestra
+			clave privada y así obtener una nueva clave común que pertenece sólo a nosotros.
+			
+			Para realizar esta tarea en openssl, usaremos \href{https://www.openssl.org/docs/man1.0.2/apps/pkeyutl.html}
+			{\textit{pkeyutl}} con la opción \textit{-derive} con ambas contraseñas: \textit{-inkey} para nuestra clave privada
+			y \textit{-peerkey} para la clave pública que nos han pasado.
+			
+			En concreto, quedaría algo así:
+			\verb|openssl pkeyutl -derive -passin <pass> -inkey <nuestra clave>|
+			\verb| -peerkey <clave recibida> -out <clave derivada>|
+
 \section{Análisis de los resultados}
 	
 \end{document}
