@@ -82,7 +82,7 @@ sgn="signature.txt"
     openssl dgst -sha256 -passin pass:$passwd -sign ./Claves/$name"DSApriv.pem" -out ./Resultados/"sgnA.bin" <(cat $pubB ./Claves/$name"ECpub.pem")
     # Cifra la firma: e_k(t)
     openssl enc $mode -pass file:$key -in ./Resultados/"sgnA.bin" -out ./Resultados/"sgnA_enc.bin"
-    # Pasa su clave y la firma cifrada: (d || e_k(t))
+    # Pasa la firma cifrada: e_k(t)
     cat ./Resultados/"sgnA_enc.bin" > $msg
 # Bob
     # Lee la firma cifrada de Alice: e_k(t)
