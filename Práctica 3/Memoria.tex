@@ -149,17 +149,17 @@ Protocolos Criptográficos} % Subtitle
 		así obligatoriamente sólo el primero). También debemos pasarle por parámetro el algoritmo que queremos usar
 		
 		El primer ejemplo es el más fácil pues ya nos indican qué algoritmo usar y sólo hay que buscar el parámetro
-		\textit{-c}:
+		\textit{-c}:\\
 		\begin{small}
 			\verb|openssl dgst -sha384 -c -out $name"DSApub.sha384" $name"DSApub.pem"|
 		\end{small}
 		
-		El siguiente ejemplo nos pide una salida de 160 bits y sólo hay un algoritmo con ese nombre:
+		El siguiente ejemplo nos pide una salida de 160 bits y sólo hay un algoritmo con ese nombre:\\
 		\begin{small}
 			\verb|openssl dgst -ripemd160 -c -out $surname"DSApub.ripemd160" $surname"DSApub.pem"|
 		\end{small}
 		
-		Para finalizar, generamos el valor HMAC con la clave especificada:
+		Para finalizar, generamos el valor HMAC con la clave especificada:\\
 		\begin{small}
 			\verb|openssl dgst -hmac "12345" -c -out sharedDSA.hmac sharedDSA.pem|
 		\end{small}
