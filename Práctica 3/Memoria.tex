@@ -213,6 +213,16 @@ Protocolos Criptográficos} % Subtitle
 			En concreto, quedaría algo así:
 			\verb|openssl pkeyutl -derive -passin <pass> -inkey <nuestra clave>|
 			\verb| -peerkey <clave recibida> -out <clave derivada>|
+				
+		\subsubsection{Cifrar y Descrifrar}
+			Realmente, esta parte ya la conocemos pues la hemos trabajado bastante a fondo en la primera parte y hemos seguido
+			viéndola en uso.
+			
+			Como ya sabemos, se utiliza \href{https://www.openssl.org/docs/man1.0.2/apps/enc.html}{\textit{enc}} para esta
+			tarea junto con el modo (que esta vez será \textit{-aes-128-cfb8}, el cuál no habíamos tenido que usar hasta
+			ahora), la clave que derivamos antes, y el flag \textit{-d} si queremos desencriptar el mensaje:
+			
+			\verb|openssl enc (¿-d?) <mode> -pass <clave derivada> -in <entrada> -out <salida>|					    			
 
 \section{Análisis de los resultados}
 	
