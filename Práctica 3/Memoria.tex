@@ -163,7 +163,45 @@ Protocolos Criptográficos} % Subtitle
 		\begin{small}
 			\verb|openssl dgst -hmac "12345" -c -out sharedDSA.hmac sharedDSA.pem|
 		\end{small}
-	
+
+	\subsection{Protocolo Estación a Estación}
+		En este protocolo, lo primero será generar las claves que, en nuestro caso, serán una clave por curva elíptica como
+		en la práctica anterior para generar la clave derivada y una clave DSA como la explicada anteriormente para firmar.
+		
+		Este protocolo se compone de varios mensajes iniciales entre los usuarios implicados en la conversación, a los que
+		llamaremos, como es usual, \textbf{Alice} y \textbf{Bob}:
+		
+		\begin{itemize}
+			\item Alice:
+			\begin{itemize}
+				\item Pasa su clave: $c = g^a$
+			\end{itemize}
+			\item Bob:
+			\begin{itemize}
+				\item Lee la clave de Alice: $c$
+				\item Calcula la clave compartida: $k = c^b = g^{ab}$
+				\item Firma $(c || d)$: $s = sgn_B (c || d)$
+				\item Pasa su clave y la firma cifrada: $(d || e_k(s))$
+			\end{itemize}
+			\item Alice:
+			\begin{itemize}
+				\item Lee la clave y la firma cifrada de Bob: $d = g^b, e_k(s)$
+				\item Calcula la clave compartida: $k = d^a = g^{ab}$
+				\item Descifra la firma: $d_k(e_k(s))$
+				\item Verifica que el mensaje lo ha firmado Bob
+				\item Firma $(d || c)$: $t = sgn_A (d || c)$
+				\item Pasa su firma cifrada: $e_k(t)$
+			\end{itemize}
+			\item Bob:
+			\begin{itemize}
+				\item Lee la firma cifrada de Alice: $e_k(t)$
+				\item Descifra la firma: $d_k(e_k(t))$
+				\item Verifica que el mensaje lo ha firmado Alice
+			\end{itemize}
+		\end{itemize}
+		
+		Donde podemos ver 3 componentes principales del algoritmo: clave derivada, cifrado/descrifrado y firma/verificación.
+		
 \section{Análisis de los resultados}
 	
 \end{document}
