@@ -279,5 +279,30 @@ Protocolos Criptográficos} % Subtitle
 		Como último ejemplo, vemos que el valor HMAC de \textit{sharedDSA.pem} es:
 		\lstinputlisting{./Resultados/sharedDSA.hmac}
 
+	\subsection{Protocolo Estación a Estación}
+		Cuando Bob firma (c||d), el resultado que nos encontramos es:
+		\lstinputlisting{./Resultados/sgnB.txt}
+
+		Sin embargo, como debe cifrarlo primero para mandárselo a Alice, lo que realmente manda es:
+		\lstinputlisting{./Resultados/sgnB_enc.txt}
+		
+		Después, Alice lo descifra y queda de la forma:
+		\lstinputlisting{./Resultados/sgnB_dec.txt}
+		
+		Que como podemos comprobar, es idéntico a como era antes de cifrarlo, por lo que la verificación da positivo.
+		
+		A continuación, Alice firma (d||c) dando como resultado:
+		\lstinputlisting{./Resultados/sgnA.txt}
+		
+		Pero, de nuevo, debe cifrarlo. Y finalmente el archivo que envía quedó así:
+		\lstinputlisting{./Resultados/sgnA_enc.txt}
+		
+		Bob, al descifrarlo, obtiene:
+		\lstinputlisting{./Resultados/sgnA_dec.txt}
+		
+		Que como vuelve a coincidir con el archivo sin cifrar, nos vuelve a dar una verificación positiva.
+		
+		Por tanto, Alice y Bob ahora tiene la clave derivada que fueron pasando y están completamente seguros de que los
+		mensajes que reciban se los ha enviado el otro, sin intermediarios.
 	
 \end{document}
