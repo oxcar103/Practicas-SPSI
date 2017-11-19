@@ -244,5 +244,30 @@ Protocolos Criptográficos} % Subtitle
 			escogida ha sido \textit{-sha256}.
 			
 \section{Análisis de los resultados}
+	\subsection{Claves DSA}
+		El contenido del archivo \textit{sharedDSA} es:
+		\lstinputlisting{./Resultados/sharedDSA.txt}
+
+		En él podemos ver los valores de $P$, $Q$ y $G$, siendo $P$ y $Q$ dos primos con la relación $P = 2kQ+1$ con $k \in
+		\mathbb{N}$ y $P > G = H^{\frac{P-1}{Q}} \mod{p} \neq 1$ con $h \in \mathbb{Z}^*_p$
+		
+		Al visualizar \textit{<nombre>DSApriv.txt} obtenemos:
+		\lstinputlisting{./Resultados/MyDSApriv.txt}
+		
+		Mientras que con \textit{<apellido>DSApriv.txt} obtenemos:
+		\lstinputlisting{./Resultados/OtherDSApriv.txt}
+		
+		Podemos apreciar que $P$, $Q$ y $G$ se mantienen pues son los valores heredados de \textit{sharedDSA}, y las claves
+		pública y privada son distintas. Podemos apreciar además que la clave pública es mucho mayor que la privada. Esto se
+		debe a su origen, pues mientras que la clave privada es un valor comprendido entre 1 y $Q-1$, ambos incluidos, la
+		clave pública se genera elevando $G$ al valor de la clave privada y después empleando el módulo por $P$.
+
+		Por su parte, las claves públicas sólo contienen los parámetros de generación junto con la parte pública como podemos
+		comprobar en \textit{<nombre>DSApub.txt}:
+		\lstinputlisting{./Resultados/MyDSApub.txt}
+		
+		Y en \textit{<apellido>DSApub.txt}:
+		\lstinputlisting{./Resultados/OtherDSApub.txt}
+		
 	
 \end{document}
