@@ -3,7 +3,7 @@
 # Directorios que contendrán los archivos
 mkdir -p Resultados Claves
 
-size=103
+size=1024
 name=${1:-My}           # Primer parámetro, por defecto "My"
 surname=${2:-Other}     # Segundo parámetro, por defecto "Other"
 passwd="0123456789"
