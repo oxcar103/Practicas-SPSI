@@ -269,5 +269,15 @@ Protocolos Criptográficos} % Subtitle
 		Y en \textit{<apellido>DSApub.txt}:
 		\lstinputlisting{./Resultados/OtherDSApub.txt}
 		
+	\subsection{Valores Hash}
+		Tras usar sha384 sobre \textit{<nombre>DSApub.pem}, obtenemos:
+		\lstinputlisting{./Resultados/MyDSApub.sha384}
+		
+		Análogamente, al aplicar ripem160 sobre \textit{<apellido>DSApub.pem} nos produce la siguiente salida de 160 bits:
+		\lstinputlisting{./Resultados/OtherDSApub.ripemd160}
+		
+		Como último ejemplo, vemos que el valor HMAC de \textit{sharedDSA.pem} es:
+		\lstinputlisting{./Resultados/sharedDSA.hmac}
+
 	
 \end{document}
