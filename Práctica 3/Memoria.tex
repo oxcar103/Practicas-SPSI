@@ -210,10 +210,10 @@ Protocolos Criptográficos} % Subtitle
 			{\textit{pkeyutl}} con la opción \textit{-derive} con ambas contraseñas: \textit{-inkey} para nuestra clave privada
 			y \textit{-peerkey} para la clave pública que nos han pasado.
 			
-			En concreto, quedaría algo así:
+			En concreto, quedaría algo así:\\
 			\begin{small}
-				\verb|openssl pkeyutl -derive -passin <pass> -inkey <nuestra clave>|
-				\verb| -peerkey <clave recibida> -out <clave derivada>|
+				\verb|openssl pkeyutl -derive -passin <pass> -inkey <nuestra clave> -peerkey <clave recibida>| \\
+				\verb| -out <clave derivada>|
 			\end{small}
 				
 		\subsubsection{Cifrar y Descrifrar}
