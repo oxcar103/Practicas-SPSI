@@ -19,3 +19,5 @@ openssl req -new -passout pass:$passwd -x509 -days 103 $conf -subj "$param" -key
 # Generamos una nueva solicitud de certificado
 openssl req -new -passout pass:$passwd $conf -subj "$param" -keyout Claves/private/newkey.pem -out Claves/requests/default_key.pem
 
+# Certificamos la nueva solicitud
+openssl ca -batch -passin pass:$passwd $conf -in Claves/requests/default_key.pem -out Claves/newcerts/default_key.pem
