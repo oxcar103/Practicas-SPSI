@@ -21,7 +21,8 @@ openssl req -new -passout pass:$passwd -x509 -days 103 $conf -subj "$param" -key
 openssl req -new -passout pass:$passwd $conf -subj "$param" -keyout Claves/private/default_key.pem -out Claves/requests/default_key.pem
 
 # Certificamos la nueva solicitud
-openssl ca -batch -passin pass:$passwd $conf -in Claves/requests/default_key.pem -out Claves/newcerts/default_key.pem
+openssl ca -batch -passin pass:$passwd $conf -in Claves/requests/default_key.pem -out Claves/newcerts/default_key.pem 2> Resultados/default_key.pem
+
 # Generamos una clave DSA igual que en la práctica 3
 openssl dsaparam -out ./Claves/sharedDSA.pem $size
 openssl gendsa -out ./Claves/DSAkey.pem ./Claves/sharedDSA.pem
@@ -32,4 +33,4 @@ openssl dsa -pubout -in ./Claves/DSAkey.pem -out ./Claves/DSApub.pem
 openssl req -new -passin pass:$passwd $conf -subj "$param" -key Claves/private/DSApriv.pem -out Claves/requests/prev_key.pem
 
 # Certificamos la nueva solicitud
-openssl ca -batch -passin pass:$passwd $conf -in Claves/requests/previous_key.pem -out Claves/newcerts/prev_key.pem
+openssl ca -batch -passin pass:$passwd $conf -in Claves/requests/previous_key.pem -out Claves/newcerts/prev_key.pem 2> Resultados/prev_key.pem
