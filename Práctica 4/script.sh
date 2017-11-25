@@ -31,3 +31,5 @@ openssl dsa -pubout -in ./Claves/DSAkey.pem -out ./Claves/DSApub.pem
 # Generamos una nueva solicitud de certificado de una clave existente
 openssl req -new -passin pass:$passwd $conf -subj "$param" -key Claves/private/DSApriv.pem -out Claves/requests/prev_key.pem
 
+# Certificamos la nueva solicitud
+openssl ca -batch -passin pass:$passwd $conf -in Claves/requests/previous_key.pem -out Claves/newcerts/prev_key.pem
