@@ -35,3 +35,13 @@ openssl req -new -passin pass:$passwd $conf -subj "$param" -key Claves/private/D
 # Certificamos la nueva solicitud
 openssl ca -batch -passin pass:$passwd $conf -in Solicitudes/prev_key.pem -out Claves/newcerts/prev_key.pem 2> Resultados/prev_key.txt
 
+# Creando archivos para ver los valores
+for i in $(ls Solicitudes/*.pem | cut -f 1 -d "." | cut -f 2 -d "/")
+    do
+        openssl req -in Solicitudes/$i.pem -out Resultados/r_$i.txt -text -noout
+    done
+
+for i in $(ls Claves/newcerts/*.pem | cut -f 1 -d "." | cut -f 3 -d "/")
+    do
+        openssl x509 -in Claves/newcerts/$i.pem > Resultados/c_$i.txt -text -noout
+    done
