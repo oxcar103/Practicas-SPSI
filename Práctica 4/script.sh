@@ -16,3 +16,6 @@ touch ./Claves/index.txt
 openssl req -new -passout pass:$passwd -x509 -days 103 $conf -subj "$param" -keyout Claves/private/cakey.pem -out Claves/cacert.pem
 # $CA_pl -newcert       # Equivalente usando el script CA.pl, salvo porque no le podemos pasar los parámetros por línea de comandos
 
+# Generamos una nueva solicitud de certificado
+openssl req -new -passout pass:$passwd $conf -subj "$param" -keyout Claves/private/newkey.pem -out Claves/requests/default_key.pem
+
