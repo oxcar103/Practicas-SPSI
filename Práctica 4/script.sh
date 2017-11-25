@@ -1,7 +1,7 @@
 #! /bin/bash
 
 # Directorios que contendrán los archivos
-mkdir -p Resultados Claves/certs Claves/crl Claves/newcerts Claves/private
+mkdir -p Resultados Claves/certs Claves/crl Claves/newcerts Claves/private Claves/requests
 
 conf="-config my_openssl.cnf"       # Archivo de configuración personal
 param=$(cat param.txt)              # Parámetros personales del certificado
