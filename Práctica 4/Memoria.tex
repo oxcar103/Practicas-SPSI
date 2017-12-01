@@ -146,6 +146,35 @@ Protocolos Criptográficos} % Subtitle
 				aparece la flag \textit{-days}, lo he cambiado desde \textit{365} hasta \textit{30}.
 			\end{itemize}
 			
+		\subsubsection{Otros cambios}
+			Al igual que los parámetros que he modificado, me he encontrado otros parámetros en dicho fichero que he visto
+			interesantes para modificarlos pero no he visto la necesidad de hacerlo. Estos son:
+			\begin{itemize}
+				\item Los subdirectorios y ficheros por defecto de CA:
+				\begin{itemize}
+					\item \textit{certificate} y \textit{private\_key} como los ficheros de la CA.
+					
+					\item \textit{certs} y \textit{new\_certs\_dir} como directorios para los Certificados.
+					
+					\item \textit{crl\_dir}, \textit{crlnumber} y \textit{crl} para la Lista de Certificados Revocados.
+					
+					\item \textit{database} y \textit{serial} que llevan el registro de los Certificados emitidos.
+				\end{itemize}
+				
+				\item Los parámetros de identificación por defecto de un certificado y su longitud permitida:
+				\begin{itemize}
+					\item \textit{countryName}, \textit{stateOrProvinceName} y \textit{localityName} como parámetros para
+					indicar la localización del propietario.
+					
+					\item \textit{0.organizationName}, \textit{1.organizationName} y \textit{organizationalUnitName} para
+					la identificación de las organizaciones que acreditan el certificado.
+					
+					\item \textit{commonName} y \textit{emailAddress} como identificación personal del propietario.
+				\end{itemize}
+				
+				\item \textbf{default\_bits}: Los bits de la clave RSA que se crea por defecto, está fijada a \textit{2048}.
+			\end{itemize}
+			
 	\subsection{Autoridad Certificadora Raíz}
 	\subsection{Solicitud de Certificado con clave por defecto}
 	\subsection{Solicitud de Certificado de una clave existente}
