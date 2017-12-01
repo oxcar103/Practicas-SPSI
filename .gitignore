@@ -225,7 +225,8 @@ TSWLatexianTemp*
 
 # Ignorar archivos de resultados de las prácticas
 Resultados/
+Claves/
+Solicitudes/
 input.bin
 input1.bin
 clave
-Claves/
