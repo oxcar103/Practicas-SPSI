@@ -179,6 +179,27 @@ Protocolos Criptográficos} % Subtitle
 			\end{itemize}
 			
 	\subsection{Autoridad Certificadora Raíz}
+		Para generar la \textit{Autoridad Certificadora Raíz}(\textbf{Root CA}) usaremos \textit{openssl} con la opción
+		\href{https://www.openssl.org/docs/man1.0.2/apps/req.html}{\textit{req}} con los flags:
+		\begin{itemize}
+			\item \textit{-new}, pues lo que queremos es hacer una nueva solicitud de certificado.
+			\item \textit{-x509}, pues queremos que esté auto-firmado.
+			\item \textit{-days}, pues queremos darle un periodo de validez superior al de los certificados que vamos a firmar.
+			\item \textit{-keyout}, para indicarle donde queremos guardar la clave privada.
+			\item \textit{-out}, para indicalre donde queremos guardar el certificado resultante.
+		\end{itemize}
+		
+		Adicionalmente, para evitar que nos pregunte los parámetros de identificación personal, podemos pasárselos por línea de
+		comandos mediante el flag \textit{-subj}.
+		
+		En particular, generamos nuestra CA raíz usando:\\
+		\verb|openssl req -new -passout <pass> -x509 -days 103 -config my_openssl.cnf|\\
+		\verb|-subj "<param>" -keyout Claves/private/cakey.pem -out Claves/cacert.pem|\\
+		
+		También podemos hacerlo usando el script \href{https://www.openssl.org/docs/man1.0.2/apps/CA.pl.html}{\textit{CA.pl}}
+		ubicado en la dirección \textit{/usr/lib/ssl/misc/CA.pl} mediante la orden:\\
+		\verb|CA.pl -newca|\\
+	
 	\subsection{Solicitud de Certificado con clave por defecto}
 	\subsection{Solicitud de Certificado de una clave existente}
 	\subsection{Certificación de Solicitudes}
