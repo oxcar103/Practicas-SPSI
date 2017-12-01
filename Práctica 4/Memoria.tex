@@ -158,7 +158,10 @@ Protocolos Criptográficos} % Subtitle
 					
 					\item \textit{crl\_dir}, \textit{crlnumber} y \textit{crl} para la Lista de Certificados Revocados.
 					
-					\item \textit{database} y \textit{serial} que llevan el registro de los Certificados emitidos.
+					\item \textit{database} y \textit{serial} que llevan el registro de los Certificados emitidos. Por tanto,
+					es importante inicializarlos. En mi caso, ejecuto:\\
+					\verb|echo "1000" > Claves/serial|\\
+					\verb|touch ./Claves/index.txt|\\
 				\end{itemize}
 				
 				\item Los parámetros de identificación por defecto de un certificado y su longitud permitida:
