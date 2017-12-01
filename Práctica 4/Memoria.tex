@@ -128,7 +128,9 @@ Protocolos Criptográficos} % Subtitle
 			En mi caso particular, prefería mantener el archivo original, por lo que he hecho una copia del mismo en el
 			directorio de trabajo y lo he modificado ahí. Esto me obliga a indicarle su ubicación a \textit{openssl} cada
 			vez que lo necesite añadiendo el flag:\\
-			\verb|-config my_openssl.cnf|\\
+			\begin{small}
+				\verb|-config my_openssl.cnf|\\
+			\end{small}
 		
 			He modificado los siguientes campos:
 			\begin{itemize}
@@ -160,8 +162,10 @@ Protocolos Criptográficos} % Subtitle
 					
 					\item \textit{database} y \textit{serial} que llevan el registro de los Certificados emitidos. Por tanto,
 					es importante inicializarlos. En mi caso, ejecuto:\\
-					\verb|echo "1000" > Claves/serial|\\
-					\verb|touch ./Claves/index.txt|\\
+					\begin{small}
+						\verb|echo "1000" > Claves/serial|\\
+						\verb|touch ./Claves/index.txt|\\
+					\end{small}
 				\end{itemize}
 				
 				\item Los parámetros de identificación por defecto de un certificado y su longitud permitida:
@@ -193,12 +197,16 @@ Protocolos Criptográficos} % Subtitle
 		comandos mediante el flag \textit{-subj}.
 		
 		En particular, generamos nuestra CA raíz usando:\\
-		\verb|openssl req -new -passout <pass> -x509 -days 103 -config my_openssl.cnf|\\
-		\verb|-subj "<param>" -keyout Claves/private/cakey.pem -out Claves/cacert.pem|\\
+		\begin{small}
+			\verb|openssl req -new -passout <pass> -x509 -days 103 -config my_openssl.cnf|\\
+			\verb| -subj "<param>" -keyout Claves/private/cakey.pem -out Claves/cacert.pem|\\
+		\end{small}
 		
 		También podemos hacerlo usando el script \href{https://www.openssl.org/docs/man1.0.2/apps/CA.pl.html}{\textit{CA.pl}}
 		ubicado en la dirección \textit{/usr/lib/ssl/misc/CA.pl} mediante la orden:\\
-		\verb|CA.pl -newca|\\
+		\begin{small}
+			\verb|CA.pl -newca|\\
+		\end{small}
 	
 	\subsection{Solicitud de Certificado con clave por defecto}
 	\subsection{Solicitud de Certificado de una clave existente}
