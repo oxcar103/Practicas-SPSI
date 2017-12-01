@@ -42,10 +42,12 @@ openssl ca -batch -passin pass:$passwd $conf -in Solicitudes/prev_key.pem -out C
 # Creando archivos para ver los valores
 for i in $(ls Solicitudes/*.pem | cut -f 1 -d "." | cut -f 2 -d "/")
     do
-        openssl req -in Solicitudes/$i.pem -out Resultados/r_$i.txt -text -noout
+        openssl req -in Solicitudes/$i.pem -out Resultados/r_$i.txt -text -noout        # Solicitudes de certificados
     done
+
+openssl x509 -in Claves/cacert.pem > Resultados/cacert.txt -text -noout                 # CA raíz
 
 for i in $(ls Claves/newcerts/*.pem | cut -f 1 -d "." | cut -f 3 -d "/")
     do
-        openssl x509 -in Claves/newcerts/$i.pem > Resultados/c_$i.txt -text -noout
+        openssl x509 -in Claves/newcerts/$i.pem > Resultados/c_$i.txt -text -noout      # Certificados aprobados
     done
