@@ -218,8 +218,8 @@ Protocolos Criptográficos} % Subtitle
 		
 		Quedaría algo similar a:\\
 		\begin{small}
-			\verb|openssl req -new -passout <pass> -config my_openssl.cnf -subj "<param>"|\\
-			\verb| -keyout Claves/private/default_key.pem -out Solicitudes/default_key.pem|\\
+			\verb|openssl req -new -passout <pass> (-newkey <algorithm>:<conf>) -config my_openssl.cnf|\\
+			\verb| -subj "<param>" -keyout Claves/private/default_key.pem -out Solicitudes/default_key.pem|\\
 		\end{small}
 	
 	\subsection{Solicitud de Certificado de una clave existente}
