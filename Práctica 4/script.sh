@@ -24,7 +24,7 @@ openssl req -new -passout pass:$passwd $conf -subj "$param" -keyout Claves/priva
 
 # Certificamos la nueva solicitud
 openssl ca -batch -passin pass:$passwd $conf -in Solicitudes/default_key.pem -out Claves/newcerts/default_key.pem 2> Resultados/default_key.txt
-# $CA_pl -signcert      # Equivalente usando el script CA.pl
+# $CA_pl -signreq       # Equivalente usando el script CA.pl
 
 # Generamos una clave DSA igual que en la práctica 3
 openssl dsaparam -out ./Claves/sharedDSA.pem $size
@@ -37,7 +37,7 @@ openssl req -new -passin pass:$passwd $conf -subj "$param" -key Claves/private/D
 
 # Certificamos la nueva solicitud
 openssl ca -batch -passin pass:$passwd $conf -in Solicitudes/prev_key.pem -out Claves/newcerts/prev_key.pem 2> Resultados/prev_key.txt
-# $CA_pl -signcert      # Equivalente usando el script CA.pl
+# $CA_pl -signreq       # Equivalente usando el script CA.pl
 
 # Creando archivos para ver los valores
 for i in $(ls Solicitudes/*.pem | cut -f 1 -d "." | cut -f 2 -d "/")
