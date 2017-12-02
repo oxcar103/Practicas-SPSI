@@ -240,6 +240,42 @@ Protocolos Criptográficos} % Subtitle
 		\end{small}
 	
 	\subsection{Certificación de Solicitudes}
+		Para la Certificación de Solicitudes utilizaremos la opción \href{https://www.openssl.org/docs/man1.0.2/apps/ca.html}
+		{\textit{ca}} de \textit{openssl} con los flags:
+		\begin{itemize}
+			\item \textit{-noemailDN}, para indicarle que, a pesar de que es un dato presente en la Solicitud de Certificado,
+			este dato no aparezca en el Certificado que finalmente se firme por la \textit{CA}. Esto es una buena práctica
+			según el propio manual.
+			\item \textit{-in}, para indicarle donde está la solicitud que se quierer firmar.
+			\item \textit{-out}, para indicalre donde queremos guardar el certificado resultante.
+		\end{itemize}
+		
+		Adicionalmente, podemos pasarle un archivo \textit{CA} distinto al que se encuentra en la dirección por defecto dada
+		por el archivo de configuración mediante la opción \textit{-cert}.
+		
+		De este modo, la orden para la certificación quedaría tal que:\\		
+		\begin{small}
+			\verb|openssl ca -batch -noemailDN -passin <pass> -config my_openssl.cnf|\\
+			\verb| (-cert <CA file>) -in Solicitudes/<req> -out Claves/newcerts/<cert>|\\
+		\end{small}
+
+		El parámetro \textit{-batch} utilizado anteriormente, nos permite aceptar automáticamente las solicitudes que sean
+		correctas, es decir, que tengan un \textbf{DN} distinto a los ya utilizados en el caso usual de que en el archivo de
+		configuración \textbf{unique\_subject} no se haya establecido a \textit{no}\footnote{Como ya mencioné anteriormente,
+		es importante que ese parámetro sea configurado de ese modo pues permite respetar la utilidad de \textbf{DN} pero
+		esto no es más que una práctica para la familiarización con los comandos, de modo que no le ví sentido respetarlo
+		durante la ejecución de la misma pero sí que comprendo la importancia que tiene.}. De nuevo, he vuelto a obviar la
+		importancia de algo durante la ejecución de la práctica. En este caso, al eliminar la interacción en este punto estoy
+		pasando por alto que los datos introducidos al solicitar un certificado sean correctos pues podría indicarse una
+		ubicación inexistente, un correo o nombre que no existan por tener un formato incorrecto o similar. Simplemente lo
+		hago por agilizar y porque como soy yo mismo el que introduce los parámetros, sé que estarán correctos\footnote{O
+		al menos, eso creo, cualquier contribución será bienvenida. \textasciicircum-\textasciicircum}.
+
+		También podemos hacerlo usando el anteriormente mencionado script \textit{CA.pl} mediante la orden:\\
+		\begin{small}
+			\verb|CA.pl -signreq|\\
+		\end{small}
+		
 	\subsection{Archivos de valores}
 			
 \section{Análisis de los resultados}
