@@ -23,7 +23,7 @@ openssl req -new -passout pass:$passwd -x509 -days 103 $conf -subj "$param" -key
 openssl req -new -passout pass:$passwd $conf -subj "$param" -keyout Claves/private/default_key.pem -out Solicitudes/default_key.pem
 
 # Certificamos la nueva solicitud
-openssl ca -batch -passin pass:$passwd $conf -in Solicitudes/default_key.pem -out Claves/newcerts/default_key.pem 2> Resultados/default_key.txt
+openssl ca -batch -noemailDN -passin pass:$passwd $conf -in Solicitudes/default_key.pem -out Claves/newcerts/default_key.pem 2> Resultados/default_key.txt
 # $CA_pl -signreq       # Equivalente usando el script CA.pl
 
 # Generamos una clave DSA igual que en la práctica 3
@@ -36,7 +36,7 @@ openssl dsa -pubout -in ./Claves/DSAkey.pem -out ./Claves/DSApub.pem
 openssl req -new -passin pass:$passwd $conf -subj "$param" -key Claves/private/DSApriv.pem -out Solicitudes/prev_key.pem
 
 # Certificamos la nueva solicitud
-openssl ca -batch -passin pass:$passwd $conf -in Solicitudes/prev_key.pem -out Claves/newcerts/prev_key.pem 2> Resultados/prev_key.txt
+openssl ca -batch -noemailDN -passin pass:$passwd $conf -in Solicitudes/prev_key.pem -out Claves/newcerts/prev_key.pem 2> Resultados/prev_key.txt
 # $CA_pl -signreq       # Equivalente usando el script CA.pl
 
 # Creando archivos para ver los valores
