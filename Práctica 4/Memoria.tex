@@ -210,7 +210,22 @@ Protocolos Criptográficos} % Subtitle
 		\end{small}
 	
 	\subsection{Solicitud de Certificado con clave por defecto}
+		Para la generación de Solicitudes de Certificados es obligatorio el manejo de la instrucción \textit{req} junto con
+		sus parámetros, en particular, \textit{new}. Adicionalmente, aunque yo no lo he hecho, podemos usar \textit{-newkey}
+		que nos permite seleccionar el tipo de encriptación así como los parámtros deseados. Por defecto, y es el protocolo
+		que uso por comodidad, es el \textbf{RSA} con el tamaño en bits por defecto \textit{2048}, como ya comenté pues no
+		modifiqué ese valor en el archivo de configuración.
+		
+		Quedaría algo similar a:\\
+		\begin{small}
+			\verb|openssl req -new -passout <pass> -config my_openssl.cnf -subj "$param"|\\
+			\verb| -keyout Claves/private/default_key.pem -out Solicitudes/default_key.pem|\\
+		\end{small}
+	
 	\subsection{Solicitud de Certificado de una clave existente}
+%	# Generamos una nueva solicitud de certificado de una clave existente
+%	openssl req -new -passin pass:$passwd $conf -subj "$param" -key Claves/private/DSApriv.pem -out Solicitudes/prev_key.pem
+	
 	\subsection{Certificación de Solicitudes}
 	\subsection{Archivos de valores}
 			
