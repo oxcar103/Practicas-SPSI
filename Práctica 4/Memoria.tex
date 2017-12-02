@@ -218,13 +218,26 @@ Protocolos Criptográficos} % Subtitle
 		
 		Quedaría algo similar a:\\
 		\begin{small}
-			\verb|openssl req -new -passout <pass> -config my_openssl.cnf -subj "$param"|\\
+			\verb|openssl req -new -passout <pass> -config my_openssl.cnf -subj "<param>"|\\
 			\verb| -keyout Claves/private/default_key.pem -out Solicitudes/default_key.pem|\\
 		\end{small}
 	
 	\subsection{Solicitud de Certificado de una clave existente}
-%	# Generamos una nueva solicitud de certificado de una clave existente
-%	openssl req -new -passin pass:$passwd $conf -subj "$param" -key Claves/private/DSApriv.pem -out Solicitudes/prev_key.pem
+		Para la generación de Solicitudes de Certificados con clave existente, previamente creamos una clave\footnote{Ver
+		prácticas anteriores.}\footnote{En mi caso, he usado una clave DSA.} y después llamamos a \textit{req -new} como
+		hicimos en el caso anterior sólo que ahora hay 2 pequeñas diferencias muy relacionadas entre sí:
+		\begin{itemize}
+			\item No necesitamos crear una clave, luego no necesitamos hacer uso de \textit{-newkey}.
+			
+			\item Queremos usar una clave existente, luego en lugar de usar \textit{-keyout} para indicar dónde guardar la
+			nueva clave, usaremos \textit{-key} para indicar dónde está la clave que vamos a usar.
+		\end{itemize}
+		
+		Finalmente, el resultado sería algo así:\\
+		\begin{small}
+			\verb|openssl req -new -passin <pass> -config my_openssl.cnf -subj "<param>"|\\
+			\verb| -key Claves/private/DSApriv.pem -out Solicitudes/prev_key.pem|\\
+		\end{small}
 	
 	\subsection{Certificación de Solicitudes}
 	\subsection{Archivos de valores}
