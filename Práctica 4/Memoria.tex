@@ -277,7 +277,24 @@ Protocolos Criptográficos} % Subtitle
 		\end{small}
 		
 	\subsection{Archivos de valores}
+		Para realizar el volcado de los datos en archivos para su posterior análisis se hará diferenciando casos:
+		\begin{itemize}
+			\item Para los Certificados usamos \href{https://www.openssl.org/docs/man1.0.2/apps/x509.html}{\textit{x509}}:
+			\begin{small}
+				\verb|openssl x509 -text -noout -in Claves/<cert>.pem > Resultados/<cert>.txt|\\
+			\end{small}
 			
+			Cabe destacar que las principales funciones de este comando son precisamente la visualización y la firma de
+			certificados. Por lo que tiene más funciones como mostrar un dato en particular, por ejemplo:
+			\begin{itemize}
+				\item \textbf{-email} para mostrar el correo electrónico asociado al certificado si hay alguno.
+				\item \textbf{-startdate} para mostrar cuándo empieza el periodo de validez del certificado.
+				\item \textbf{-enddate} para mostrar cuándo termina el periodo de validez del certificado.
+				\item \textbf{-dates} equivale a \textbf{-startdate} y \textbf{-enddate} simultáneamente.
+				\item \textbf{-pubkey} muestra la clave pública.
+			\end{itemize}
+		\end{itemize}
+		
 \section{Análisis de los resultados}
 	\subsection{Autoridad Certificadora Raíz}
 	\subsection{Solicitudes de Certificados}
