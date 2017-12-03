@@ -293,6 +293,16 @@ Protocolos Criptográficos} % Subtitle
 				\item \textbf{-dates} equivale a \textbf{-startdate} y \textbf{-enddate} simultáneamente.
 				\item \textbf{-pubkey} muestra la clave pública.
 			\end{itemize}
+			
+			Para imprimirlos todos, utilizamos un bucle \textit{for} sobre el directorio \textit{Claves/newcerts} y mostramos
+			también \textit{cacert.pem} que sería el único certificado que no está en dicho directorio.
+			
+			\item Para los Certificados usamos \href{https://www.openssl.org/docs/man1.0.2/apps/req.html}{\textit{req}}:
+			\begin{small}
+				\verb|openssl req -text -noout -in Solicitudes/<cert>.pem -out Resultados/<cert>.txt|\\
+			\end{small}
+			
+			Para imprimirlos todos, simplemente utilizamos un bucle \textit{for} sobre el directorio \textit{Solicitudes}.
 		\end{itemize}
 		
 \section{Análisis de los resultados}
