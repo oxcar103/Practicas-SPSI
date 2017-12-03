@@ -281,7 +281,7 @@ Protocolos Criptográficos} % Subtitle
 		\begin{itemize}
 			\item Para los Certificados usamos \href{https://www.openssl.org/docs/man1.0.2/apps/x509.html}{\textit{x509}}:\\
 			\begin{small}
-				\verb|openssl x509 -text -noout -in Claves/<cert>.pem > Resultados/<cert>.txt|\\
+				\verb|openssl x509 -text -noout -in Claves/<cert>.pem > Resultados/c_<cert>.txt|\\
 			\end{small}
 			
 			Cabe destacar que las principales funciones de este comando son precisamente la visualización y la firma de
@@ -297,13 +297,21 @@ Protocolos Criptográficos} % Subtitle
 			Para imprimirlos todos, utilizamos un bucle \textit{for} sobre el directorio \textit{Claves/newcerts} y mostramos
 			también \textit{cacert.pem} que sería el único certificado que no está en dicho directorio.
 			
-			\item Para los Certificados usamos \href{https://www.openssl.org/docs/man1.0.2/apps/req.html}{\textit{req}}:\\
+			\item De manera análoga, para los Certificados usamos \href{https://www.openssl.org/docs/man1.0.2/apps/req.html}
+			{\textit{req}} para mostrarlos:\\
 			\begin{small}
-				\verb|openssl req -text -noout -in Solicitudes/<cert>.pem -out Resultados/<cert>.txt|\\
+				\verb|openssl req -text -noout -in Solicitudes/<req>.pem -out Resultados/r_<req>.txt|\\
 			\end{small}
 			
 			Para imprimirlos todos, simplemente utilizamos un bucle \textit{for} sobre el directorio \textit{Solicitudes}.
 		\end{itemize}
+		
+		Como se puede ver en la separación de casos, diferenciamos los archivos de salida incluyendo \textbf{r\_} si proviene
+		de una solicitud o \textbf{c\_} si lo hace de un certificado. Esta diferenciación simplemente se hace para evitar
+		sobreescritura pues cuando creamos un certificado a partir de una solicitud, no le cambiamos el nombre. Por ello,
+		si volcáramos sin más el archivo, sólo se conservaría uno de los 2 (en particular, el último creado por el script
+		que es el certificado). Adicionalmente, comentar que como el CA no tiene un equivalente en el directorio de
+		Solicitudes, es el único que su volcado mantiene su nombre cambiando la extensión \textit{.pem} por \textit{.txt}.
 		
 \section{Análisis de los resultados}
 	\subsection{Autoridad Certificadora Raíz}
