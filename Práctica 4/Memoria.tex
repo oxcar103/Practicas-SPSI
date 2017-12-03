@@ -279,7 +279,7 @@ Protocolos Criptográficos} % Subtitle
 	\subsection{Archivos de valores}
 		Para realizar el volcado de los datos en archivos para su posterior análisis se hará diferenciando casos:
 		\begin{itemize}
-			\item Para los Certificados usamos \href{https://www.openssl.org/docs/man1.0.2/apps/x509.html}{\textit{x509}}:
+			\item Para los Certificados usamos \href{https://www.openssl.org/docs/man1.0.2/apps/x509.html}{\textit{x509}}:\\
 			\begin{small}
 				\verb|openssl x509 -text -noout -in Claves/<cert>.pem > Resultados/<cert>.txt|\\
 			\end{small}
@@ -297,7 +297,7 @@ Protocolos Criptográficos} % Subtitle
 			Para imprimirlos todos, utilizamos un bucle \textit{for} sobre el directorio \textit{Claves/newcerts} y mostramos
 			también \textit{cacert.pem} que sería el único certificado que no está en dicho directorio.
 			
-			\item Para los Certificados usamos \href{https://www.openssl.org/docs/man1.0.2/apps/req.html}{\textit{req}}:
+			\item Para los Certificados usamos \href{https://www.openssl.org/docs/man1.0.2/apps/req.html}{\textit{req}}:\\
 			\begin{small}
 				\verb|openssl req -text -noout -in Solicitudes/<cert>.pem -out Resultados/<cert>.txt|\\
 			\end{small}
