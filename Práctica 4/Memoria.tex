@@ -315,6 +315,29 @@ Protocolos Criptográficos} % Subtitle
 		
 \section{Análisis de los resultados}
 	\subsection{Autoridad Certificadora Raíz}
+		El archivo \textit{cacert.txt} nos muestra:
+		\lstinputlisting[basicstyle=\footnotesize]{./Resultados/cacert.txt}
+		
+		Como podemos ver, la \textit{Autoridad Certificadora raíz} es un certificado autofirmado como mencionamos
+		anteriormente y esto se refleja en que tanto \textbf{Issuer} que es la identidad que firma el certificado como
+		\textbf{Subject} que es la identidad que lo solicita, coinciden\footnote{En esta práctica, por la reutilización
+		de los parámetros, siempre va a coincidir pero me refiero a que, aunque nosotros no hubiésemos permitido repetir
+		el DN, ambas identidades coincidirían para la \textit{CA}.}. Otra forma de ver esto es en la parte de X509 que
+		podemos ver 2 apartados interesantes más:
+		\begin{itemize}
+			\item En la parte donde pone \textit{Basic Constraints} podemos ver que se confirma que es la \textit{CA}
+			mediante el texto \verb|CA:TRUE|
+			
+			\item Por otro lado, vemos que el identificador de clave de \textbf{Subject} es idéntico al de la \textit{CA}.
+		\end{itemize}
+		
+		Además, también hemos dicho que su periodo de validez debe ser mayor que el resto para proveer suficiente tiempo
+		de vigencia para que los certificados emitidos por ella tengan utilidad. Podemos ver que su tiempo de validez es
+		superior a 3 veces el del resto de certificados como veremos más adelante cuando veamos el resto de archivos.
+		
+		Por último, destacaremos la inclusión de la información de la clave pública de \textbf{Subject} así como el
+		algoritmo de firma que tiene.
+		
 	\subsection{Solicitudes de Certificados}
 	\subsection{Certificación de Solicitudes}
 	
