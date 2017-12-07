@@ -339,6 +339,16 @@ Protocolos Criptográficos} % Subtitle
 		algoritmo de firma que tiene.
 		
 	\subsection{Solicitudes de Certificados}
+		En el caso de las solicitudes, la estructura es similar a la \textit{CA} pero con muchos menos campos pues sólo
+		aparece la información del \textbf{Subject} (como no está firmada aún, no tiene \textbf{Issuer}), la clave pública
+		y la firma.
+		
+		El archivo de la solicitud que genera la clave es:
+		\lstinputlisting[basicstyle=\footnotesize]{./Resultados/r_default_key.txt}
+		
+		El archivo de la solicitud para una clave existente es:
+		\lstinputlisting[basicstyle=\footnotesize]{./Resultados/r_prev_key.txt}
+		
 	\subsection{Certificación de Solicitudes}
 	
 \end{document}
