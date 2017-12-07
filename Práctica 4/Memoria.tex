@@ -375,12 +375,13 @@ Protocolos Criptográficos} % Subtitle
 		
 		De nuevo, incidiendo en que la \textit{CA} es un certificado autofirmado, podemos ver que la estructura de los
 		certificados es la misma que la mostrada en el apartado de \textit{CA}. Aparecen el campo de \textbf{Issuer} y
-		\textbf{Subject}\footnote{Estos campos deberían mantener igual la información de \textit{C(country)},
-		\textit{ST(State or Province Name)} y \textit{O(Organization Name)} mientras que \textit{DN} debería ser distinto
-		y único pero ya comenté que quitamos esta restricción junto con una justificación de por qué se tomó dicha decisión.}
-		que nos dan información sobre la \textit{CA} y la identidad que realizó la solicitud, respectivamente; el periodo de
-		validez, que es el periodo que fijamos por defecto; la clave pública y la firma del \textbf{Subject}; y el apartado
-		de X509 que nos muestra que el identificador de clave de \textbf{Subject} es distinto al de la \textit{CA} y en
+		\textbf{Subject}\footnote{Estos campos deben mantener igual la información de \textit{C(country)},
+		\textit{ST(State or Province Name)} y \textit{O(Organization Name)} para que la \textit{CA} tenga autoridad pues no
+		puede certificar solicitudes de fuera de su rango mientras que \textit{DN} debería ser distinto y único pero ya
+		comenté que quitamos esta restricción junto con una justificación de por qué se tomó dicha decisión.} que nos dan
+		información sobre la \textit{CA} y la identidad que realizó la solicitud, respectivamente; el periodo de validez,
+		que es el periodo que fijamos por defecto; la clave pública y la firma del \textbf{Subject}; y el apartado de X509
+		que nos muestra que el identificador de clave de \textbf{Subject} es distinto al de la \textit{CA} y en
 		\textit{Basic Constraints} aparece el texto \verb|CA:FALSE|.
 		
 \end{document}
