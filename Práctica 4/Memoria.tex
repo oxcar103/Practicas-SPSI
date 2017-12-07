@@ -350,5 +350,37 @@ Protocolos Criptográficos} % Subtitle
 		\lstinputlisting[basicstyle=\footnotesize]{./Resultados/r_prev_key.txt}
 		
 	\subsection{Certificación de Solicitudes}
-	
+		Antes de firmar un certificado, nos muestra la información referente al mismo para que comprobemos que es correcta,
+		el periodo de validez que tendrá, qué configuración se va a usar, su número de serie y la información de X509. Una
+		vez mostrada, nos pregunta si queremos firmarlo y si queremos documentarla en la base de datos.
+		
+		Para firmar la solicitud que genera la clave, se nos muestra:
+		\lstinputlisting[basicstyle=\footnotesize]{./Resultados/default_key.txt}
+		
+		Una vez comprobada la información y firmada, obtenemos el certificado:
+		\lstinputlisting[basicstyle=\footnotesize]{./Resultados/c_default_key.txt}
+		
+		Además, automáticamente se genera un archivo por defecto con la misma información en \textit{Claves/newcerts} cuyo
+		nombre se corresponde con el número de serie del certificado:
+		\lstinputlisting[basicstyle=\footnotesize]{./Resultados/c_1000.txt}
+		
+		Para firmar la solicitud para una clave existente, se nos muestra:
+		\lstinputlisting[basicstyle=\footnotesize]{./Resultados/prev_key.txt}
+		
+		Una vez comprobada la información y firmada, obtenemos el certificado:
+		\lstinputlisting[basicstyle=\footnotesize]{./Resultados/c_prev_key.txt}
+		
+		Y en este caso, el archivo generado de forma automática sería:
+		\lstinputlisting[basicstyle=\footnotesize]{./Resultados/c_1001.txt}
+		
+		De nuevo, incidiendo en que la \textit{CA} es un certificado autofirmado, podemos ver que la estructura de los
+		certificados es la misma que la mostrada en el apartado de \textit{CA}. Aparecen el campo de \textbf{Issuer} y
+		\textbf{Subject}\footnote{Estos campos deberían mantener igual la información de \textit{C(country)},
+		\textit{ST(State or Province Name)} y \textit{O(Organization Name)} mientras que \textit{DN} debería ser distinto
+		y único pero ya comenté que quitamos esta restricción junto con una justificación de por qué se tomó dicha decisión.}
+		que nos dan información sobre la \textit{CA} y la identidad que realizó la solicitud, respectivamente; el periodo de
+		validez, que es el periodo que fijamos por defecto; la clave pública y la firma del \textbf{Subject}; y el apartado
+		de X509 que nos muestra que el identificador de clave de \textbf{Subject} es distinto al de la \textit{CA} y en
+		\textit{Basic Constraints} aparece el texto \verb|CA:FALSE|.
+		
 \end{document}
