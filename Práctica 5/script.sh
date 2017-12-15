@@ -60,6 +60,28 @@ valid_Hash(){
         done
 }
 
+increment_hex(){
+    value=$1
+    add="1"
+    increment=''
+
+    for i in `seq $h_My_Mask -$h_mask $h_mask`
+        do
+            subvalue=`cut -c $((i-h_mask+1))-$i <(echo $value)`
+
+            subvalue=`echo "obase=16; $(($((0x$subvalue))+$add))" | bc`
+            add=`echo "obase=16; $(($((0x$subvalue)) >> $b_mask))" | bc`
+
+            if (( $add != 0 ))
+            then
+                subvalue=$null
+            fi
+
+            increment=$subvalue$increment
+        done
+}
+
+
 # Leemos n bytes de /dev/urandom (en hexadecimal):
 nonce=`hexdump -vn $B_My_Mask -e '/1 "%02X"' /dev/urandom`
 
@@ -82,7 +104,7 @@ valid_Hash
 
 while [ $value == false ]
     do
-        # Siguiente valor de la función aleatorio
+        # Siguiente valor de la función aleatoria
         x=`hexdump -vn $B_My_Mask -e '/1 "%02X"' /dev/urandom`
 
         # Calculamos el hash
@@ -109,8 +131,9 @@ valid_Hash
 
 while [ $value == false ]
     do
-        # Siguiente valor de la función aleatorio
-        let y=y+1
+        # Siguiente valor de la función lineal
+        increment_hex $y
+        y=$increment
 
         # Calculamos el hash
         Hash=`openssl dgst -sha256 <<< $id$y | cut -d '=' -f 2 | tr '[:lower:]' '[:upper:]'`
