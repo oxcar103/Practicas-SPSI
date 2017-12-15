@@ -61,3 +61,26 @@ valid_Hash(){
 # Leemos n bytes de /dev/urandom (en hexadecimal):
 nonce=`hexdump -vn $B_My_Mask -e '/1 "%02X"' /dev/urandom`
 
+id=$text$nonce
+
+echo $id
+
+cont=0
+
+x=`hexdump -vn $B_My_Mask -e '/1 "%02X"' /dev/urandom`
+Hash=`openssl dgst -sha256 <<< $id$x | cut -d '=' -f 2 | tr '[:lower:]' '[:upper:]'`
+
+# Comprobamos si nos vale
+valid_Hash
+
+while [ $value == false ]
+    do
+        x=`hexdump -vn $B_My_Mask -e '/1 "%02X"' /dev/urandom`
+        Hash=`openssl dgst -sha256 <<< $id$x | cut -d '=' -f 2 | tr '[:lower:]' '[:upper:]'`
+
+        # Comprobamos si nos vale
+        valid_Hash
+
+        let cont=cont+1
+    done
+
