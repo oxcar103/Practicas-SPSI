@@ -1,0 +1,34 @@
+#! /bin/bash
+
+text=${1:-"Texto de prueba"}    # Primer parámetro: texto de entrada, por defecto "Texto de prueba"
+b=${2:-103}                     # Segundo parámetro: número de 0's que deben aparecer al principio, por defecto "103"
+n_mask=32                       # Con cuantos bits vamos a trabajar
+mask=FFFFFFFF                   # Máscara completa
+null=00000000                   # Máscara vacía
+nMy_Mask=256                    # Tamaño de nuestra máscara
+
+# Creamos la máscara de 32 en 32 bits
+for i in `seq $n_mask $n_mask $nMy_Mask`
+    do
+        echo $i
+        # Si índice es menor que b, van a quedar todo 0's después del desplazamiento, le asignamos la máscara vacía
+        if (( $i < $b ))
+        then
+            echo "1"
+            aux=$mask
+        # Si el índice anterior es mayor que b, van a quedar todo F's después del desplazamiento, le asignamos la máscara completa
+        elif (( $(($i-$n_mask)) > $b ))
+        then
+            echo "2"
+            aux=$null
+        # Si no, desplazamos la máscara completa i-b posiciones 
+        else
+            echo "d"
+            echo "i-b="$(($i-$b))
+            aux=`echo "obase=16; $((($((0x$mask)) << $(($i-$b))) & $((0x$mask))))" | bc`
+        fi
+
+        # Estamos construyendo la máscara al revés, del signo más significativo al menos significativo
+        My_Mask=$My_Mask$aux
+    done
+
