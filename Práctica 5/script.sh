@@ -58,3 +58,6 @@ valid_Hash(){
         done
 }
 
+# Leemos n bytes de /dev/urandom (en hexadecimal):
+nonce=`hexdump -vn $m_mask -e '/1 "%02X"' /dev/urandom`
+
