@@ -67,16 +67,20 @@ increment_hex(){
 
     for i in `seq $h_My_Mask -$h_mask $h_mask`
         do
+            # Cortamos el valor en cachos
             subvalue=`cut -c $((i-h_mask+1))-$i <(echo $value)`
 
+            # Sumamos y tomamos accarreo si es necesario
             subvalue=`echo "obase=16; $(($((0x$subvalue))+$add))" | bc`
             add=`echo "obase=16; $(($((0x$subvalue)) >> $b_mask))" | bc`
 
+            # Si hay acarreo, cambiamos subvalue por la máscara vacía
             if (( $add != 0 ))
             then
                 subvalue=$null
             fi
 
+            # Concatenamos
             increment=$subvalue$increment
         done
 }
