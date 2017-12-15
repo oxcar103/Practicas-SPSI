@@ -13,19 +13,15 @@ for i in `seq $n_mask $n_mask $nMy_Mask`
         # Si índice es menor que b, van a quedar todo 0's después del desplazamiento, le asignamos la máscara vacía
         if (( $i < $b ))
         then
-            echo "1"
             aux=$mask
 
         # Si el índice anterior es mayor que b, van a quedar todo F's después del desplazamiento, le asignamos la máscara completa
         elif (( $(($i-$n_mask)) > $b ))
         then
-            echo "2"
             aux=$null
 
         # Si no, desplazamos la máscara completa i-b posiciones 
         else
-            echo "d"
-            echo "i-b="$(($i-$b))
             aux=`echo "obase=16; $((($((0x$mask)) << $(($i-$b))) & $((0x$mask))))" | bc`
         fi
 
