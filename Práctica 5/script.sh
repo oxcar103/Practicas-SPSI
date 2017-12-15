@@ -98,3 +98,30 @@ while [ $value == false ]
 # Escribimos los valores en el archivo correspondiente
 echo $id, $x, $Hash, $cont >> $output1
 
+# Reseteamos el contador
+cont=0
+
+#Calculamos el hash
+Hash=`openssl dgst -sha256 <<< $id$y | cut -d '=' -f 2 | tr '[:lower:]' '[:upper:]'`
+
+# Comprobamos si nos vale
+valid_Hash
+
+while [ $value == false ]
+    do
+        # Siguiente valor de la función aleatorio
+        let y=y+1
+
+        # Calculamos el hash
+        Hash=`openssl dgst -sha256 <<< $id$y | cut -d '=' -f 2 | tr '[:lower:]' '[:upper:]'`
+
+        # Comprobamos si nos vale
+        valid_Hash
+
+        # Incrementamos el contador
+        let cont=cont+1
+    done
+
+# Escribimos los valores en el archivo correspondiente
+echo $id, $y, $Hash, $cont >> $output2
+
