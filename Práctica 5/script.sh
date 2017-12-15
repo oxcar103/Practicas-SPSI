@@ -2,6 +2,8 @@
 
 text=${1:-"Texto de prueba"}    # Primer parámetro: texto de entrada, por defecto "Texto de prueba"
 b=${2:-103}                     # Segundo parámetro: número de 0's que deben aparecer al principio, por defecto "103"
+output1=${3:-random.csv}        # Tercer parámetro: archivo de salida del método aleatorio, por defecto "random.csv"
+output2=${4:-linear.csv}        # Cuarto parámetro: archivo de salida del método lineal, por defecto "linear.csv"
 n_mask=32                       # Con cuantos bits vamos a trabajar
 mask=FFFFFFFF                   # Máscara completa
 null=00000000                   # Máscara vacía
