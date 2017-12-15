@@ -20,8 +20,8 @@ b_My_Mask=256                       # En bits
 h_My_Mask=$(($b_My_Mask>>2))        # En dígitos hexadecimales
 B_My_Mask=$(($h_My_Mask>>1))        # En bytes
 
-# Creamos la máscara de n_mask en n_mask bits
-for i in `seq $n_mask $n_mask $n_My_Mask`
+# Creamos la máscara de b_mask en b_mask bits
+for i in `seq $b_mask $b_mask $b_My_Mask`
     do
         # Si índice es menor que b, van a quedar todo 0's después del desplazamiento, le asignamos la máscara vacía
         if (( $i < $b ))
@@ -29,7 +29,7 @@ for i in `seq $n_mask $n_mask $n_My_Mask`
             aux=$mask
 
         # Si el índice anterior es mayor que b, van a quedar todo F's después del desplazamiento, le asignamos la máscara completa
-        elif (( $(($i-$n_mask)) > $b ))
+        elif (( $(($i-$b_mask)) > $b ))
         then
             aux=$null
 
@@ -42,7 +42,7 @@ for i in `seq $n_mask $n_mask $n_My_Mask`
         My_Mask=$My_Mask$aux
     done
 
-# Función de validación, comprobamos de n_mask en n_mask bits
+# Función de validación, comprobamos de h_mask en h_mask cifras hexadecimales
 valid_Hash(){
     value=true
 
@@ -59,5 +59,5 @@ valid_Hash(){
 }
 
 # Leemos n bytes de /dev/urandom (en hexadecimal):
-nonce=`hexdump -vn $m_mask -e '/1 "%02X"' /dev/urandom`
+nonce=`hexdump -vn $B_My_Mask -e '/1 "%02X"' /dev/urandom`
 
