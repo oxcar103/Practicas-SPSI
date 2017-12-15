@@ -1,19 +1,24 @@
 #! /bin/bash
 
-text=${1:-"Texto de prueba"}    # Primer parámetro: texto de entrada, por defecto "Texto de prueba"
-b=${2:-103}                     # Segundo parámetro: número de 0's que deben aparecer al principio, por defecto "103"
-output1=${3:-random.csv}        # Tercer parámetro: archivo de salida del método aleatorio, por defecto "random.csv"
-output2=${4:-linear.csv}        # Cuarto parámetro: archivo de salida del método lineal, por defecto "linear.csv"
-mask=FFFFFFFF                   # Máscara completa
-null=00000000                   # Máscara vacía
-n_mask=32                       # Con cuantos bits vamos a trabajar
-n_My_Mask=256                   # Tamaño de nuestra máscara
-# Conversión a dígitos hexadecimales
-h_mask=$(($n_mask>>2))
-h_My_Mask=$(($n_My_Mask>>2))
-# Conversión a bytes
-m_mask=$(($h_mask>>1))
-m_My_Mask=$(($h_My_Mask>>1))
+# Parámetros del programa:
+text=${1:-"Texto de prueba"}        # Primer parámetro: texto de entrada, por defecto "Texto de prueba"
+b=${2:-103}                         # Segundo parámetro: número de 0's que deben aparecer al principio, por defecto "103"
+output1=${3:-random.csv}            # Tercer parámetro: archivo de salida del método aleatorio, por defecto "random.csv"
+output2=${4:-linear.csv}            # Cuarto parámetro: archivo de salida del método lineal, por defecto "linear.csv"
+
+# Máscaras a usar
+mask=FFFFFFFF                       # Máscara completa
+null=00000000                       # Máscara vacía
+
+# Tamaño con el que trabajaremos
+b_mask=32                           # En bits
+h_mask=$(($b_mask>>2))              # En dígitos hexadecimales
+B_mask=$(($h_mask>>1))              # En bytes
+
+# Tamaño de nuestra máscara
+b_My_Mask=256                       # En bits
+h_My_Mask=$(($b_My_Mask>>2))        # En dígitos hexadecimales
+B_My_Mask=$(($h_My_Mask>>1))        # En bytes
 
 # Creamos la máscara de n_mask en n_mask bits
 for i in `seq $n_mask $n_mask $n_My_Mask`
