@@ -84,3 +84,5 @@ while [ $value == false ]
         let cont=cont+1
     done
 
+echo $id, $x, $Hash, $cont >> $output1
+
