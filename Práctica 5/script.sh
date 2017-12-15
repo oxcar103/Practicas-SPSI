@@ -4,10 +4,16 @@ text=${1:-"Texto de prueba"}    # Primer parámetro: texto de entrada, por defec
 b=${2:-103}                     # Segundo parámetro: número de 0's que deben aparecer al principio, por defecto "103"
 output1=${3:-random.csv}        # Tercer parámetro: archivo de salida del método aleatorio, por defecto "random.csv"
 output2=${4:-linear.csv}        # Cuarto parámetro: archivo de salida del método lineal, por defecto "linear.csv"
-n_mask=32                       # Con cuantos bits vamos a trabajar
 mask=FFFFFFFF                   # Máscara completa
 null=00000000                   # Máscara vacía
+n_mask=32                       # Con cuantos bits vamos a trabajar
 n_My_Mask=256                   # Tamaño de nuestra máscara
+# Conversión a dígitos hexadecimales
+h_mask=$(($n_mask>>2))
+h_My_Mask=$(($n_My_Mask>>2))
+# Conversión a bytes
+m_mask=$(($h_mask>>1))
+m_My_Mask=$(($h_My_Mask>>1))
 
 # Creamos la máscara de n_mask en n_mask bits
 for i in `seq $n_mask $n_mask $n_My_Mask`
@@ -31,20 +37,19 @@ for i in `seq $n_mask $n_mask $n_My_Mask`
         My_Mask=$My_Mask$aux
     done
 
+# Función de validación, comprobamos de n_mask en n_mask bits
 valid_Hash(){
     value=true
 
-    for i in `seq $n $n $m`
+    for i in `seq $h_mask $h_mask $h_My_Mask`
         do
-            submask=`cut -c $(($i-n+1))-$i <(echo $My_Mask)`
-            subhash=`cut -c $(($i-n+1))-$i <(echo $Hash)`
+            submask=`cut -c $((i-h_mask+1))-$i <(echo $My_Mask)`
+            subhash=`cut -c $((i-h_mask+1))-$i <(echo $Hash)`
 
             if (( $(($((0x$subhash)) & $((0x$submask)))) != 0 ))
             then
                 value=false
             fi
         done
-
-    return $value
 }
 
