@@ -7,10 +7,10 @@ output2=${4:-linear.csv}        # Cuarto parámetro: archivo de salida del méto
 n_mask=32                       # Con cuantos bits vamos a trabajar
 mask=FFFFFFFF                   # Máscara completa
 null=00000000                   # Máscara vacía
-nMy_Mask=256                    # Tamaño de nuestra máscara
+n_My_Mask=256                   # Tamaño de nuestra máscara
 
-# Creamos la máscara de 32 en 32 bits
-for i in `seq $n_mask $n_mask $nMy_Mask`
+# Creamos la máscara de n_mask en n_mask bits
+for i in `seq $n_mask $n_mask $n_My_Mask`
     do
         # Si índice es menor que b, van a quedar todo 0's después del desplazamiento, le asignamos la máscara vacía
         if (( $i < $b ))
@@ -30,4 +30,21 @@ for i in `seq $n_mask $n_mask $nMy_Mask`
         # Estamos construyendo la máscara al revés, del valor más significativo al menos significativo
         My_Mask=$My_Mask$aux
     done
+
+valid_Hash(){
+    value=true
+
+    for i in `seq $n $n $m`
+        do
+            submask=`cut -c $(($i-n+1))-$i <(echo $My_Mask)`
+            subhash=`cut -c $(($i-n+1))-$i <(echo $Hash)`
+
+            if (( $(($((0x$subhash)) & $((0x$submask)))) != 0 ))
+            then
+                value=false
+            fi
+        done
+
+    return $value
+}
 
