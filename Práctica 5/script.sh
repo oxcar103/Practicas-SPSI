@@ -48,9 +48,11 @@ valid_Hash(){
 
     for i in `seq $h_mask $h_mask $h_My_Mask`
         do
+            # Cortamos la máscara y el hash en cachos
             submask=`cut -c $((i-h_mask+1))-$i <(echo $My_Mask)`
             subhash=`cut -c $((i-h_mask+1))-$i <(echo $Hash)`
 
+            # Los comparamos
             if (( $(($((0x$subhash)) & $((0x$submask)))) != 0 ))
             then
                 value=false
@@ -61,13 +63,18 @@ valid_Hash(){
 # Leemos n bytes de /dev/urandom (en hexadecimal):
 nonce=`hexdump -vn $B_My_Mask -e '/1 "%02X"' /dev/urandom`
 
+# Calculamos el id
 id=$text$nonce
 
-echo $id
-
+# Inicializamos el contador
 cont=0
 
+# Primer valor de la función aleatoria
 x=`hexdump -vn $B_My_Mask -e '/1 "%02X"' /dev/urandom`
+# Primer valor de la función lineal
+y=$x
+
+#Calculamos el hash
 Hash=`openssl dgst -sha256 <<< $id$x | cut -d '=' -f 2 | tr '[:lower:]' '[:upper:]'`
 
 # Comprobamos si nos vale
@@ -75,14 +82,19 @@ valid_Hash
 
 while [ $value == false ]
     do
+        # Siguiente valor de la función aleatorio
         x=`hexdump -vn $B_My_Mask -e '/1 "%02X"' /dev/urandom`
+
+        # Calculamos el hash
         Hash=`openssl dgst -sha256 <<< $id$x | cut -d '=' -f 2 | tr '[:lower:]' '[:upper:]'`
 
         # Comprobamos si nos vale
         valid_Hash
 
+        # Incrementamos el contador
         let cont=cont+1
     done
 
+# Escribimos los valores en el archivo correspondiente
 echo $id, $x, $Hash, $cont >> $output1
 
