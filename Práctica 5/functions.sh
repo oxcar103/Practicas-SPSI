@@ -64,8 +64,10 @@ increment_hex(){
     value=$1
     add="1"
     increment=''
+    i=$h_My_Mask
 
-    for i in `seq $h_My_Mask -$h_mask $h_mask`
+    # Mientras haya que sumar:
+    while (( $add != 0 ))
         do
             # Cortamos el valor en cachos
             subvalue=`cut -c $((i-h_mask+1))-$i <(echo $value)`
@@ -74,15 +76,23 @@ increment_hex(){
             subvalue=`echo "obase=16; $(($((0x$subvalue))+$add))" | bc`
             add=`echo "obase=16; $(($((0x$subvalue)) >> $b_mask))" | bc`
 
-            # Si hay acarreo, cambiamos subvalue por la máscara vacía
-            if (( $add != 0 ))
-            then
-                subvalue=$null
-            fi
+            # Completamos hasta tener una cadena de $hmask caracteres
+            while [[ `cut -c $h_mask- <(echo $subvalue)` = "" ]]
+                do
+                    subvalue="0"$subvalue
+                done
 
             # Concatenamos
             increment=$subvalue$increment
+
+            let i=i-$h_mask
         done
+
+    # Cuando hayamos terminado de sumar, cortamos el resto
+    subvalue=`cut -c 1-$i <(echo $value)`
+
+    # Concatenamos
+    increment=$subvalue$increment
 }
 
 
