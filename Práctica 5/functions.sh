@@ -89,7 +89,9 @@ increment_hex(){
 
             # Si hemos recorrido toda la cadena, paramos
             if (( $i == 0))
+            then
                 add=0
+            fi
         done
 
     # Cuando hayamos terminado de sumar, si no hemos recorrido toda la cadena
