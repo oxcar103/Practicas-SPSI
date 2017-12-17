@@ -9,8 +9,8 @@ last=${3:-3}                            # Tercer parámetro: último valor, por 
 first=${4:-1}                           # Cuarto parámetro: primer valor, por defecto 1
 increment=${5:-1}                       # Quinto parámetro: incremento entre valores, por defecto 1
 
-random="Resultados\random"
-linear="Resultados\linear"
+random="Resultados/random"
+linear="Resultados/linear"
 
 # Bucle de los valores
 for i in `seq $first $increment $last`
@@ -23,7 +23,7 @@ for i in `seq $first $increment $last`
         for j in `seq $sample`
             do
                 #echo "Prueba $j de $i ceros"        # Para visualizar el progreso
-                ./functions.sh $text $i $random$i".csv" $linear$i".csv"
+                ./functions.sh "$text" $i $random$i".csv" $linear$i".csv"
             done
     done
 
