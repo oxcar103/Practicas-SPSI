@@ -76,11 +76,19 @@ increment_hex(){
             subvalue=`echo "obase=16; $(($((0x$subvalue))+$add))" | bc`
             add=`echo "obase=16; $(($((0x$subvalue)) >> $b_mask))" | bc`
 
-            # Completamos hasta tener una cadena de $hmask caracteres
-            while [[ `cut -c $h_mask- <(echo $subvalue)` = "" ]]
-                do
-                    subvalue="0"$subvalue
-                done
+             # Si hay acarreo, cambiamos subvalue por la máscara vacía
+            if (( $add != 0 ))
+            then
+                subvalue=$null
+
+            # Si no hay acarreo:
+            else
+                # Completamos hasta tener una cadena de $hmask caracteres
+                while [[ `cut -c $h_mask- <(echo $subvalue)` = "" ]]
+                    do
+                        subvalue="0"$subvalue
+                    done
+            fi
 
             # Concatenamos
             increment=$subvalue$increment
