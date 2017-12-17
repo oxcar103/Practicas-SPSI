@@ -86,13 +86,21 @@ increment_hex(){
             increment=$subvalue$increment
 
             let i=i-$h_mask
+
+            # Si hemos recorrido toda la cadena, paramos
+            if (( $i == 0))
+                add=0
         done
 
-    # Cuando hayamos terminado de sumar, cortamos el resto
-    subvalue=`cut -c 1-$i <(echo $value)`
+    # Cuando hayamos terminado de sumar, si no hemos recorrido toda la cadena
+    if (( $i != 0))
+    then
+        # Cortamos el resto
+        subvalue=`cut -c 1-$i <(echo $value)`
 
-    # Concatenamos
-    increment=$subvalue$increment
+        # Concatenamos
+        increment=$subvalue$increment
+    fi
 }
 
 
