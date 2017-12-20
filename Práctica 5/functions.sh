@@ -121,7 +121,7 @@ nonce=`hexdump -vn $B_My_Mask -e '/1 "%02X"' /dev/urandom`
 id=$text$nonce
 
 # Inicializamos el contador
-cont=0
+cont=1
 
 # Primer valor de la función aleatoria
 x=`hexdump -vn $B_My_Mask -e '/1 "%02X"' /dev/urandom`
@@ -153,7 +153,7 @@ while [ $value == false ]
 echo $id, $x, $Hash, $cont >> $output1
 
 # Reseteamos el contador
-cont=0
+cont=1
 
 #Calculamos el hash
 Hash=`openssl dgst -sha256 <<< $id$y | cut -d '=' -f 2 | tr '[:lower:]' '[:upper:]'`
