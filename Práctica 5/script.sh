@@ -5,7 +5,7 @@ mkdir -p Resultados Tablas
 
 sample=${1:-10}                         # Primer parámetro: número de muestras, por defecto 10
 text=${2:-"Texto de prueba"}            # Segundo parámetro: texto de entrada, por defecto "Texto de prueba"
-last=${3:-3}                            # Tercer parámetro: último valor, por defecto 3
+last=${3:-103}                          # Tercer parámetro: último valor, por defecto 103
 first=${4:-1}                           # Cuarto parámetro: primer valor, por defecto 1
 increment=${5:-1}                       # Quinto parámetro: incremento entre valores, por defecto 1
 
