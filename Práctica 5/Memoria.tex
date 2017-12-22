@@ -159,6 +159,26 @@ Puzzles Hash} % Subtitle
 			\end{algorithm}
 	
 		\subsubsection{Parámetros}
+			Como parámetros a nuestro programa, podemos pasarle:
+			\begin{itemize}
+				\item \textbf{text} que será el texto de entrada a partir del cuál se generará el \textit{id}, por defecto
+				tiene configurado un valor de "Texto de prueba".
+
+				\item \textbf{b} que nos indica el número deseado de 0's que habrá en la cadena resultado, por defecto está
+				fijada a "103", pero como eso podría tardar cerca de una semana, se recomiena cambiar este parámetro.
+
+				\item \textbf{output1} que es el primer archivo de salida y se usará para el método aleatorio, por defecto la 
+				salida será"random.csv".
+				
+				\item \textbf{output2} que es el archivo de salida que se usará para el método lineal, por defecto la salida
+				será "linear.csv".
+			\end{itemize}
+			
+			Están pensados para ser incluidos en ese orden de tal forma que puedes mandar \textbf{output1} si has mandados
+			también \textbf{text} y \textbf{b} pero no afectará a lo que ocurra con \textbf{output2}.
+			
+			Se puede también llamar sin parámetros pero el valor por defecto de \textbf{b} es tan grande que no se debería.
+			
 		\subsubsection{Creación de la máscara}
 		\subsubsection{Validación del Hash}
 		\subsubsection{Nuevo candidato aleatorio}
