@@ -298,6 +298,18 @@ Puzzles Hash} % Subtitle
 			porque si toma el de por defecto, el programa tardará muchísimo en terminar.
 			
 		\subsubsection{Bucle de cálculo de valores}
+			En el bucle de cálculo de valores nos limitamos a crear con \textit{touch} los archivos de salida que pasaremos
+			a functions.sh. Debido a que queremos guardar muestras de varios valores del parámetro \textit{b}, crearemos
+			2 archivos por cada posible valor, diferenciando los archivos entre si fueron hechos por el método aleatorio
+			o por el lineal, y además si fueron hechos con un valor de \textit{b} u otro.
+			
+			Adicionalmente, este bucle selecciona qué valores toma el parámetro \textit{b} a través de las variables
+			\textbf{last}, \textbf{first} e \textbf{increment} y el comando \textit{seq} como comentábamos antes.
+			
+			Una vez establecidos, el valor de \textbf{b}, \textbf{output1} y \textbf{output2}, le dejamos el trabajo a
+			functions.sh realizar su labor tantas veces como indique el parámetro \textbf{sample} por cada valor de
+			\textbf{b}.
+		
 		\subsubsection{Bucle de creación de tablas}
 
 	\subsection{Cambios menores hechos a mano}
