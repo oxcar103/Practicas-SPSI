@@ -41,7 +41,7 @@ for i in $random $linear
         fi
 
         # Cabecera
-        echo -e "\t\t\t\tElements\t\t\t\t\t| Total\t| Average" > $graph
+        echo -e "B \t|\t\t\t\tElements\t\t\t\t\t| Total\t| Average" > $graph
 
         # Separador
         echo -e "---------------------------------------------------------------------------------------------------------" >> $graph
@@ -52,7 +52,7 @@ for i in $random $linear
                 sum=0
                 mean=0
                 elements=0
-                msg="|"
+                msg="| $j \t|"
 
                 for k in `cat $i$j".csv" | cut -d ',' -f 4 | tr -d ' '`
                     do
