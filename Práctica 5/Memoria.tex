@@ -311,6 +311,18 @@ Puzzles Hash} % Subtitle
 			\textbf{b}.
 		
 		\subsubsection{Bucle de creación de tablas}
+			En el bucle de creación de tablas, agruparemos todos los archivos que fueron generados por el método aleatorio en
+			un mismo archivo pero colocaremos en cada fila un archivo distinto. Análogamente, con los generados por el otro
+			método.
+			
+			Además, este método se encarga también de imprimir la cabecera de la tabla, los separadores de filas y columnas,
+			la suma y la media de los archivos para el cuál usaremos \textit{bc} con el flag \textit{-l} y el configurando
+			"scale" al número de decimales que queramos.
+			
+			También cabe destacar el acceso a los valores de los archivos csv usando \textit{cut} y \textit{tr} dos grandes
+			herramientas de procesamiento automático de textos dada su versatilidad y su sencillez, aunque como desventaja
+			hay que decir también que requieren un poco de la imaginación del usuario de visualizar una solución aproximada
+			primero para lograr aprovecharlas bien.
 
 	\subsection{Cambios menores hechos a mano}
 
