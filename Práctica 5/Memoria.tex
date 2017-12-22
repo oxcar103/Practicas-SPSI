@@ -331,18 +331,33 @@ Puzzles Hash} % Subtitle
 		% Nótese que esto es una espinita clavada
 		También, para una correcta visualización en este documento, se han tenido que modificar las tablas mediante la inserción
 		de tabulaciones y lograr así que las columnas queden alineadas.
-	
-
+		
 \section{Análisis de los resultados}
 	\subsection{Resultados de la búsqueda aleatoria}
+		La tabla ha quedado así: \\
 		\begin{scriptsize}
 			\lstinputlisting{Tablas/random.txt}
 		\end{scriptsize}
 	\subsection{Resultados de la búsqueda lineal}
-			\begin{scriptsize}
-				\lstinputlisting{Tablas/linear.txt}
-			\end{scriptsize}
+		La tabla ha quedado así: \\
+		\begin{scriptsize}
+			\lstinputlisting{Tablas/linear.txt}
+		\end{scriptsize}
 	
 	\subsection{Tendencia del valor de la media}
-
+		Mediante combinatoria, podemos calcular muy fácilmente que la probabilidad de que un valor tenga un hash \textbf{b}
+		0's es $\displaystyle \frac{1}{2^b}$. Por tanto, se deduce que en media necesitaremos $2^b$ intentos para lograr dar
+		con un valor que cumpla estas características.
+	
+		Viendo las tablas anteriores, más o menos podemos ver cómo tienden a duplicarse el número de intentos medios entre
+		un valor y otro, justo como nos indican los resultados teóricos. Sin embargo, no se ve de forma tan clara en todos
+		los casos pues depende de una componente aleatoria y el número de muestras hace que la media sea bastante sensible
+		a esta componente presente en ambos algoritmos.
+		
+		Como prueba de ello, podemos ver que que hay ocasiones en las que encuentra un valor cuya composición da un hash con
+		8 ó 9 ceros en 6 ó 5 intentos respectivamente y sin embargo para encontrar un hash de 2 ceros requiere 31 intentos
+		en una ocasión.
+		Además, también podemos ver que la media es muy sensible pues en la tabla de búsqueda aleatoria, nos encontramos con
+		que es más fácil encontrar en media una máscara con 14 0's que con 13, cosa totalmente ilógica.
+		
 \end{document}
