@@ -60,6 +60,12 @@
 %% Matemáticas
 \usepackage{amsmath}
 
+% Para algoritmos
+\usepackage{algorithm}
+\usepackage{algorithmic}
+\usepackage{amsthm}
+\input{spanishAlgorithmic.tex}
+
 \makeatletter
 
 % Hipervínculos
@@ -67,6 +73,9 @@
 
 %% Para incluir archivos en texto plano
 \usepackage{listings}
+
+% Para incluir archivos de código
+\usepackage{verbatim}
 
 %----------------------------------------------------------------------------------------
 %	TÍTULO
@@ -116,18 +125,51 @@ Puzzles Hash} % Subtitle
 %% Inicio del documento
 
 \section{Creación de los archivos}
-	\subsection{function.sh}
+	\subsection{functions.sh}
+		El contenido de este archivo es:
+
+		\begin{scriptsize}
+		\verbatiminput{functions.sh}
+		\end{scriptsize}
+
+		Procedamos a ver detalladamente su funcionamiento en los siguientes apartados:
+
 		\subsubsection{Funcionamiento general}
+			\begin{algorithm}[H]
+				\begin{algorithmic}[1]
+					\REQUIRE \ \\
+						\texttt{text}, texto de entrada \\
+						\texttt{output\_file}, fichero de salida \\ \
+					\STATE{\texttt{Calculamos \$nonce}}
+					\STATE{\texttt{id = \$text\$nonce}}
+					\STATE{\texttt{cont} = 1}
+					\STATE{\texttt{x} = \texttt{Valor\_Aleatorio()}}
+					\STATE{\texttt{Hash(\$id\$x)}}
+					\STATE{\texttt{value=valid\_Hash()}}
+					\WHILE{\texttt{\$value != true}}
+						\STATE{\texttt{cont} = \texttt{\$cont + 1}}
+						\STATE{\texttt{x} = \texttt{Siguiente\_Valor()}}
+						\STATE{\texttt{Hash(\$id\$x)}}
+						\STATE{\texttt{value=valid\_Hash()}}
+					\ENDWHILE
+					\PRINT{\texttt{\$id, \$x, \$Hash, \$cont} > \texttt{\$output\_file}}
+				\end{algorithmic}
+				\caption{Funcionamiento General}
+				\label{General}
+			\end{algorithm}
+	
 		\subsubsection{Parámetros}
 		\subsubsection{Creación de la máscara}
 		\subsubsection{Validación del Hash}
 		\subsubsection{Nuevo candidato aleatorio}
 		\subsubsection{Nuevo candidato lineal}
 	\subsection{scripth.sh}
+	
 		\subsubsection{Funcionamiento general}
 		\subsubsection{Parámetros}
 		\subsubsection{Bucle de cálculo de valores}
 		\subsubsection{Bucle de creación de tablas}
+
 	\subsection{Cambios menores hechos a mano}
 
 \section{Análisis de los resultados}
