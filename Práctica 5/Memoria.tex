@@ -180,6 +180,24 @@ Puzzles Hash} % Subtitle
 			Se puede también llamar sin parámetros pero el valor por defecto de \textbf{b} es tan grande que no se debería.
 			
 		\subsubsection{Creación de la máscara}
+			Dado que estamos trabajando con números hexadecimales enormes, el SO es incapaz de trabajar con ellos, pues la
+			forma fácil de fabricar la máscara sería hacer una máscara de \textbf{F}'s del tamaño que queramos la final y
+			después hacerle un desplazamiento a la izquierda y un AND a nivel de bits tal que: \\
+			\verb|($mask << $b) & $mask|
+			
+			Sin embargo, nos vemos obligados a trabajar sólo con unos cuántos bits $n$ para que el SO pueda trabajar con ellos
+			así que la opción pasa por calcular la máscara parte a parte. Esto nos lleva a diferenciar entre 3 casos entre
+			la variable contador $n \cdot i$ y el parámetro \textbf{b} mencionado anteriormente:
+			\begin{itemize}
+				\item $n \cdot i < \textbf{b}$: en este caso, simplemente van a quedarnos $n$ 0's pues el desplazamiento es
+				mayor que el límite superior de intervalo $[n \cdot i, n \cdot (i-1)]$.
+				\item $n \cdot (i-1) > \textbf{b}$: en este caso, ocurre justo lo contrario que en la situación anterior,
+				dándonos lugar a $n$ F's.
+				\item $n \cdot i < \textbf{b} < n \cdot i$: este caso es el más interesante pues es de verdad donde se
+				calcula parte de la máscara. Además, la forma nueva de hacerlo es muy similar a la fórmula mostrada anteriormente:
+				\verb|($mask << $(i-b)) & $mask|
+			\end{itemize}
+			
 		\subsubsection{Validación del Hash}
 		\subsubsection{Nuevo candidato aleatorio}
 		\subsubsection{Nuevo candidato lineal}
