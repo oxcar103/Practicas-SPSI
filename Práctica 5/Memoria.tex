@@ -199,6 +199,27 @@ Puzzles Hash} % Subtitle
 			\end{itemize}
 			
 		\subsubsection{Validación del Hash}
+			Para validar el hash, simplemente volvemos a cortar tanto la máscara como el hash a comprobar y lo comparamos trozo a trozo mediante AND de tal forma que el hash será válido si cada uno de sus trozos devuelve todo 0's al compararlo con la máscara.
+			
+			Esto se puede resumir visualmente en:
+			\begin{algorithm}[H]
+				\begin{algorithmic}[1]
+					\REQUIRE \ \\
+						\texttt{hash}, hash a comprobar \\
+					\STATE{\texttt{value} = \TRUE}
+					\FOR{$i < \#Hash/n$}
+						\STATE{\texttt{submask} = \texttt{\$mask[$n \cdot i$, $n \cdot (i-1)$]}}
+						\STATE{\texttt{subhash} = \texttt{\$hash[$n \cdot i$, $n \cdot (i-1)$]}}
+						\IF{\texttt{\$submask \AND \$subhash} != 0}
+							\STATE{\texttt{value} = \FALSE}
+						\ENDIF
+					\ENDFOR
+					\RETURN{\texttt{\$value}}
+				\end{algorithmic}
+				\caption{Validación del Hash}
+				\label{valid_Hash}
+			\end{algorithm}
+			
 		\subsubsection{Nuevo candidato aleatorio}
 		\subsubsection{Nuevo candidato lineal}
 	\subsection{scripth.sh}
