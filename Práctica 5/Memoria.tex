@@ -199,7 +199,9 @@ Puzzles Hash} % Subtitle
 			\end{itemize}
 			
 		\subsubsection{Validación del Hash}
-			Para validar el hash, simplemente volvemos a cortar tanto la máscara como el hash a comprobar y lo comparamos trozo a trozo mediante AND de tal forma que el hash será válido si cada uno de sus trozos devuelve todo 0's al compararlo con la máscara.
+			Para validar el hash, simplemente volvemos a cortar tanto la máscara como el hash a comprobar y lo comparamos
+			trozo a trozo mediante AND de tal forma que el hash será válido si cada uno de sus trozos devuelve todo 0's al
+			compararlo con la máscara.
 			
 			Esto se puede resumir visualmente en:
 			\begin{algorithm}[H]
@@ -233,8 +235,50 @@ Puzzles Hash} % Subtitle
 			que si extraemos $n$ dígitos de una parte, vuelvan otros $n$, ni más ni menos nos vale.
 		
 	\subsection{scripth.sh}
-	
+		El contenido de este archivo es:
+
+		\begin{scriptsize}
+		\verbatiminput{script.sh}
+		\end{scriptsize}
+		
+		Procedamos a ver detalladamente su funcionamiento en los siguientes apartados:
+		
 		\subsubsection{Funcionamiento general}
+		\begin{algorithm}[H]
+			\begin{algorithmic}[1]
+				\REQUIRE \ \\
+					\texttt{sample}, número de muestras \\
+					\texttt{text}, texto de entrada \\
+					\texttt{last}, último valor \\
+					\texttt{first}, primer valor \\
+					\texttt{increment}, incremento entre valores \\ \
+					
+				\FOR{$i$=\texttt{\$first}; $i$ < \texttt{\$last}; $i +=$ \texttt{\$increment} }
+					\STATE{\texttt{Creamos los archivos de salida aleatoria (\$random\$i.csv) y lineal (\$linear\$i.csv)}}
+					\STATE{\texttt{Creamos los archivos de salida aleatoria y lineal}}
+					\FOR{$j$ < \texttt{\$sample}}
+						\STATE{\texttt{./functions "\$text" \$i \$random\$i.csv \$linear\$i.csv}}
+					\ENDFOR
+				\ENDFOR
+				\FOR{$i = $ \texttt{\{\$random, \$linear\}}}
+					\PRINT{\texttt{\$Cabecera, \$Separador}}
+					\FOR{$i$=\texttt{\$first}; $i$ < \texttt{\$last}; $i +=$ \texttt{\$increment} }
+						\STATE{\texttt{sum}= \texttt{mean}=\texttt{elements}=0, \texttt{msg = "|"}}
+						\STATE{\texttt{Creamos los archivos de salida aleatoria y lineal}}
+						\FOR{$k \in$ \$i\$j.csv}
+							\STATE{\texttt{msg+="$\$k$ $\backslash t$"|}}
+							\STATE{\texttt{sum+=\$k}, \texttt{elements++}}
+						\ENDFOR
+						\STATE{\texttt{mean=\$sum/\$elements}}
+						\STATE{\texttt{msg+="$\$sum$ $\backslash t$| $\$mean$ $\backslash t$|"}}
+						\PRINT{\texttt{\$msg, \$Separador}}
+					\ENDFOR
+				\ENDFOR
+			\end{algorithmic}
+			\caption{Funciones del script}
+			\label{Script}
+		\end{algorithm}
+		
 		\subsubsection{Parámetros}
 		\subsubsection{Bucle de cálculo de valores}
 		\subsubsection{Bucle de creación de tablas}
