@@ -60,6 +60,7 @@ valid_Hash(){
         done
 }
 
+# Función para incrementar en 1 un número hexadecimal enorme representado en un string
 increment_hex(){
     value=$1
     add="1"
@@ -112,7 +113,6 @@ increment_hex(){
         increment=$subvalue$increment
     fi
 }
-
 
 # Leemos n bytes de /dev/urandom (en hexadecimal):
 nonce=`hexdump -vn $B_My_Mask -e '/1 "%02X"' /dev/urandom`
