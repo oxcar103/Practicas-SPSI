@@ -280,6 +280,23 @@ Puzzles Hash} % Subtitle
 		\end{algorithm}
 		
 		\subsubsection{Parámetros}
+			Como parámetros a nuestro programa, podemos pasarle:
+			\begin{itemize}
+				\item \textbf{sample}
+				
+				\item \textbf{text} que será un parámetro que pasaremos directamente a ./functions.sh, por defecto tiene
+				configurado "Texto de prueba" al igual que lo tenía ./function.sh.
+
+				\item \textbf{last}, \textbf{first} e \textbf{increment} regulan por defecto el último valor, el primero y
+				el incremento del bucle for que controla qué valores le pasamos al parámetro \textbf{b} de ./functions.sh.
+				Además, se piden en ese orden porque es el orden de preferencia para la orden \textit{seq}, una orden muy
+				interesante para la construcción de bucles en bash. Por defecto, los valores asignados son "103", "1" y
+				"1", respectivamente.
+			\end{itemize}
+			
+			Y, al igual que ocurría con el caso de ./functions.sh, se recomiendo dar un valor al parámetro \textbf{last}
+			porque si toma el de por defecto, el programa tardará muchísimo en terminar.
+			
 		\subsubsection{Bucle de cálculo de valores}
 		\subsubsection{Bucle de creación de tablas}
 
