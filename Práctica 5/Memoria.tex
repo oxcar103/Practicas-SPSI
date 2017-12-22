@@ -162,16 +162,16 @@ Puzzles Hash} % Subtitle
 			Como parámetros a nuestro programa, podemos pasarle:
 			\begin{itemize}
 				\item \textbf{text} que será el texto de entrada a partir del cuál se generará el \textit{id}, por defecto
-				tiene configurado un valor de "Texto de prueba".
+				tiene configurado un valor de \textit{Texto de prueba}.
 
 				\item \textbf{b} que nos indica el número deseado de 0's que habrá en la cadena resultado, por defecto está
-				fijada a "103", pero como eso podría tardar cerca de una semana, se recomiena cambiar este parámetro.
+				fijada a \textit{103}, pero como eso podría tardar cerca de una semana, se recomiena cambiar este parámetro.
 
 				\item \textbf{output1} que es el primer archivo de salida y se usará para el método aleatorio, por defecto la 
-				salida será"random.csv".
+				salida será \textit{random.csv}.
 				
 				\item \textbf{output2} que es el archivo de salida que se usará para el método lineal, por defecto la salida
-				será "linear.csv".
+				será \textit{linear.csv}.
 			\end{itemize}
 			
 			Están pensados para ser incluidos en ese orden de tal forma que puedes mandar \textbf{output1} si has mandados
@@ -285,13 +285,13 @@ Puzzles Hash} % Subtitle
 				\item \textbf{sample}
 				
 				\item \textbf{text} que será un parámetro que pasaremos directamente a ./functions.sh, por defecto tiene
-				configurado "Texto de prueba" al igual que lo tenía ./function.sh.
+				configurado \textit{Texto de prueba} al igual que lo tenía ./function.sh.
 
 				\item \textbf{last}, \textbf{first} e \textbf{increment} regulan por defecto el último valor, el primero y
 				el incremento del bucle for que controla qué valores le pasamos al parámetro \textbf{b} de ./functions.sh.
 				Además, se piden en ese orden porque es el orden de preferencia para la orden \textit{seq}, una orden muy
-				interesante para la construcción de bucles en bash. Por defecto, los valores asignados son "103", "1" y
-				"1", respectivamente.
+				interesante para la construcción de bucles en bash. Por defecto, los valores asignados son \textit{103},
+				\textit{1} y \textit{1}, respectivamente.
 			\end{itemize}
 			
 			Y, al igual que ocurría con el caso de ./functions.sh, se recomiendo dar un valor al parámetro \textbf{last}
@@ -332,18 +332,28 @@ Puzzles Hash} % Subtitle
 		También, para una correcta visualización en este documento, se han tenido que modificar las tablas mediante la inserción
 		de tabulaciones y lograr así que las columnas queden alineadas.
 		
+		En el caso de la tabla con más de 100 datos, se han eliminado también las columnas de los elementos pues hacían la tabla
+		demasiado grande para visualizarla.
+
 \section{Análisis de los resultados}
 	\subsection{Resultados de la búsqueda aleatoria}
-		La tabla ha quedado así: \\
+		La tabla con 10 muestras ha quedado así: \\
 		\begin{scriptsize}
 			\lstinputlisting{Tablas/random.txt}
 		\end{scriptsize}
+		
+		Mientras que los resultados de la tabla con 103 muestras queda:
+		\lstinputlisting{Tablas/random103.txt}
+		
 	\subsection{Resultados de la búsqueda lineal}
 		La tabla ha quedado así: \\
 		\begin{scriptsize}
 			\lstinputlisting{Tablas/linear.txt}
 		\end{scriptsize}
 	
+		Mientras que los resultados de la tabla con 103 muestras queda:
+		\lstinputlisting{Tablas/linear103.txt}
+
 	\subsection{Tendencia del valor de la media}
 		Mediante combinatoria, podemos calcular muy fácilmente que la probabilidad de que un valor tenga un hash \textbf{b}
 		0's es $\displaystyle \frac{1}{2^b}$. Por tanto, se deduce que en media necesitaremos $2^b$ intentos para lograr dar
@@ -358,6 +368,10 @@ Puzzles Hash} % Subtitle
 		8 ó 9 ceros en 6 ó 5 intentos respectivamente y sin embargo para encontrar un hash de 2 ceros requiere 31 intentos
 		en una ocasión.
 		Además, también podemos ver que la media es muy sensible pues en la tabla de búsqueda aleatoria, nos encontramos con
-		que es más fácil encontrar en media una máscara con 14 0's que con 13, cosa totalmente ilógica.
+		que es más fácil encontrar en media una máscara con 14 ceros que con 13, cosa totalmente ilógica.
 		
+		Basándonos en la Ley de los Grandes Números, cuando repetimos el experimento con 103 muestras pero una \textbf{b} más
+		limitada, podemos ver mejor la tendencia hacia este valor teórico.
+		Aunque siga teniendo cierta diferencia con el valor teórico, la variación se reduce considerablemente y se reduciría
+		aún más si tomamos un número de muestras mayor y suficiente paciencia como para dejarlo ejecutarse.
 \end{document}
