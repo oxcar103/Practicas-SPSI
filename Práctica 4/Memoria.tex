@@ -320,9 +320,7 @@ Certificados Digitales} % Subtitle
 		
 		Como podemos ver, la \textit{Autoridad Certificadora raíz} es un certificado autofirmado como mencionamos
 		anteriormente y esto se refleja en que tanto \textbf{Issuer} que es la identidad que firma el certificado como
-		\textbf{Subject} que es la identidad que lo solicita, coinciden\footnote{En esta práctica, por la reutilización
-		de los parámetros, siempre va a coincidir pero me refiero a que, aunque nosotros no hubiésemos permitido repetir
-		el DN, ambas identidades coincidirían para la \textit{CA}.}. Otra forma de ver esto es en la parte de X509 que
+		\textbf{Subject} que es la identidad que lo solicita, coinciden. Otra forma de ver esto es en la parte de X509 que
 		podemos ver 2 apartados interesantes más:
 		\begin{itemize}
 			\item En la parte donde pone \textit{Basic Constraints} podemos ver que se confirma que es la \textit{CA}
@@ -377,7 +375,8 @@ Certificados Digitales} % Subtitle
 		certificados es la misma que la mostrada en el apartado de \textit{CA}. Aparecen el campo de \textbf{Issuer} y
 		\textbf{Subject}\footnote{Estos campos deben mantener igual la información de \textit{C(country)},
 		\textit{ST(State or Province Name)} y \textit{O(Organization Name)} para que la \textit{CA} tenga autoridad pues no
-		puede certificar solicitudes de fuera de su rango mientras que \textit{DN} debería ser distinto y único pero ya
+		puede certificar solicitudes de fuera de su rango mientras que \textit{DN} debería ser distinto y único pero, aunque
+		sí que es distinto entre \textbf{Issuer} y \textbf{Subject}, todos los solicitantes tienen los mismos datos y ya
 		comenté que quitamos esta restricción junto con una justificación de por qué se tomó dicha decisión.} que nos dan
 		información sobre la \textit{CA} y la identidad que realizó la solicitud, respectivamente; el periodo de validez,
 		que es el periodo que fijamos por defecto; la clave pública y la firma del \textbf{Subject}; y el apartado de X509
