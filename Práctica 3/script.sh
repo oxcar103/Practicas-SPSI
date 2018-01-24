@@ -31,7 +31,7 @@ for i in $name $surname
 
 # Generación de valores Hash
 openssl dgst -sha384 -c -out ./Resultados/$name"DSApub.sha384" ./Claves/$name"DSApub.pem"
-openssl dgst -ripemd160 -binary -out ./Resultados/$surname"DSApub.ripemd160" ./Claves/$surname"DSApub.pem"
+xxd <(openssl dgst -ripemd160 -binary ./Claves/$surname"DSApub.pem") > ./Resultados/$surname"DSApub.ripemd160"
 openssl dgst -hmac "12345" -c -out ./Resultados/"sharedDSA.hmac" ./Claves/"sharedDSA.pem"
 
 # Simulación del protocolo Estación a Estación
