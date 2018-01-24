@@ -142,11 +142,13 @@ Protocolos Criptográficos} % Subtitle
 		
 	\subsection{Valores Hash}
 		Para la generación de archivos hash, ya sea firmados o no, en openssl utilizaremos el comando
-		\href{https://www.openssl.org/docs/man1.0.2/apps/dgst.html}{\textit{dgst}} y dado que en los 3 ejemplos
-		se utilizará el formato hexadecimal, deberíamos incluir el parámetro \textit{-hex} pero no lo haremos
-		porque es el formato por defecto. Adicionalmente, incluiremos el parámetro \textit{-c} en todos ellos
-		para mostrarlos agrupados en bloques de 2 separados por \textbf{:} (aunque en la práctica nos pide mostrar
-		así obligatoriamente sólo el primero). También debemos pasarle por parámetro el algoritmo que queremos usar
+		\href{https://www.openssl.org/docs/man1.0.2/apps/dgst.html}{\textit{dgst}} y en los ejemplos que se
+		utilizará el formato hexadecimal, deberíamos incluir el parámetro \textit{-hex} pero no lo haremos
+		porque es el formato por defecto. Adicionalmente, incluiremos el parámetro \textit{-c} en aquellos
+		ejemplos hexadecimales para mostrarlos agrupados en bloques de 2 separados por \textbf{:} (aunque en
+		la práctica nos pide mostrar así obligatoriamente sólo el primero)\footnote{Desafortunadamente, esta
+		opción no es válida para el ejemplo que debemos mostrar en binario.}. También debemos pasarle por
+		parámetro el algoritmo que queremos usar.
 		
 		El primer ejemplo es el más fácil pues ya nos indican qué algoritmo usar y sólo hay que buscar el parámetro
 		\textit{-c}:\\
@@ -154,9 +156,10 @@ Protocolos Criptográficos} % Subtitle
 			\verb|openssl dgst -sha384 -c -out $name"DSApub.sha384" $name"DSApub.pem"|
 		\end{small}
 		
-		El siguiente ejemplo nos pide una salida de 160 bits y sólo hay un algoritmo con ese nombre:\\
+		El siguiente ejemplo nos pide una salida de 160 bits y en formato binario, y sólo hay un algoritmo con
+		ese nombre:\\
 		\begin{small}
-			\verb|openssl dgst -ripemd160 -c -out $surname"DSApub.ripemd160" $surname"DSApub.pem"|
+			\verb|openssl dgst -ripemd160 -binary -out $surname"DSApub.ripemd160" $surname"DSApub.pem"|
 		\end{small}
 		
 		Para finalizar, generamos el valor HMAC con la clave especificada:\\
